@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.LinkedHashMap;
+
 @RestController
 @RequestMapping("user")
 public class UserController extends BaseController{
@@ -22,21 +24,22 @@ public class UserController extends BaseController{
     @RequestMapping(method = RequestMethod.GET,value = "user/{id}")
     public AjaxJson user(@PathVariable String id){
         User user = userService.getUser(id);
-        user.getSchool();
-        return Ajax.success();
+        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
+        map.put("user",user);
+        return Ajax.success(map);
     }
     /**
      * 新建用户信息
      */
     @RequestMapping(method = RequestMethod.POST,value = "user")
-    public AjaxJson newUser(){
+    public AjaxJson newUser(User user){
         return Ajax.success();
     }
     /**
      * 更新用户信息
      */
     @RequestMapping(method = RequestMethod.PUT,value = "user")
-    public AjaxJson updateUser(){
+    public AjaxJson updateUser(User user){
         return Ajax.success();
     }
     /**
