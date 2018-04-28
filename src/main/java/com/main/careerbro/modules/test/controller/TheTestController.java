@@ -2,10 +2,9 @@ package com.main.careerbro.modules.test.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.careerbro.common.jason.AjaxJson;
 import com.main.careerbro.modules.test.service.TheTestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,10 @@ public class TheTestController {
 	//rest
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET,value = "stat/{id}")
-	public AjaxJson getActiveUsers(HttpServletResponse response, @PathVariable String id) {
+	public AjaxJson getActiveUsers(HttpServletRequest request, HttpServletResponse response, @PathVariable String id) {
 		AjaxJson ajaxJson = new AjaxJson();
 		System.out.println("====="+id);
+        System.out.println(request.getSession().getAttributeNames().hasMoreElements());
 		ajaxJson.getBody().put("name", "vinbratttany");
 		return ajaxJson;
 	}

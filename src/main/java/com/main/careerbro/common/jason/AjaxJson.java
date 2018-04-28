@@ -7,9 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AjaxJson {
 
-    private boolean success = true;// 是否成功
-    private String errorCode = "-1";//错误代码
-    private String msg = "操作成功";// 提示信息
+    private String code;//code
+    private String msg;// 提示信息
     private LinkedHashMap<String, Object> body = new LinkedHashMap();//封装json的map
 
     public LinkedHashMap<String, Object> getBody() {
@@ -38,14 +37,6 @@ public class AjaxJson {
     }
 
 
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
     @JsonIgnore//返回对象时忽略此属性
     public String getJsonStr() {//返回json字符串数组，将访问msg和key的方式统一化，都使用data.key的方式直接访问。
 
@@ -60,11 +51,11 @@ public class AjaxJson {
         return json;
     }
 
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getErrorCode() {
-        return errorCode;
+    public String getCode() {
+        return code;
     }
 }
