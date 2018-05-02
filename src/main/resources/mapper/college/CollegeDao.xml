@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.main.careerbro.modules.college.dao.CollegeDao">
+
+    <sql id="collegeColumns">
+        a.id as id,
+        c.cname as city,
+        a.cname as cname,
+        a.ename as ename,
+        a.sname as sname,
+        a.category as category,
+        a.public_private as publicPrivate,
+        a.level as level,
+        a.tag as tag,
+        a.website as website,
+        a.photo_path as photoPath
+    </sql>
+
+    <sql id="collegeJoins">
+        JOIN city c ON c.id = a.city_id
+    </sql>
+
+    <!--获取所有college-->
+    <select id="getAllCollege" resultType="hashmap">
+        SELECT
+        <include refid="collegeColumns" />
+        FROM college a
+        <include refid="collegeJoins" />
+    </select>
+
+
+</mapper>

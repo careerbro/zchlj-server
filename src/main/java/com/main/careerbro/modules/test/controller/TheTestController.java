@@ -25,7 +25,6 @@ public class TheTestController {
 	public AjaxJson getActiveUsers(HttpServletRequest request, HttpServletResponse response, @PathVariable String id) {
 		AjaxJson ajaxJson = new AjaxJson();
 		System.out.println("====="+id);
-        System.out.println(request.getSession().getAttributeNames().hasMoreElements());
 		ajaxJson.getBody().put("name", "vinbratttany");
 		return ajaxJson;
 	}

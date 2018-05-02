@@ -2,214 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.main.careerbro.modules.user.dao.UserDao">
 
-    <sql id="attendanceColumns">
-        a.id AS "id",
-        a.create_by AS "createBy.id",
-        a.create_date AS
-        "createDate",
-        a.update_by AS "updateBy.id",
-        a.update_date AS
-        "updateDate",
-        a.remarks AS "remarks",
-        a.del_flag AS "delFlag",
-        a.morning
-        AS "morning",
-        a.noon AS "noon",
-        a.afternoon AS "afternoon",
-        a.night AS
-        "night",
-        a.morning_status AS "morningStatus",
-        a.noon_status AS
-        "noonStatus",
-        a.afternoon_status AS "afternoonStatus",
-        a.night_status AS
-        "nightStatus",
-        a.date AS "date",
-        a.name AS "name",
-        a.uid AS "uid",
-        a.status AS "status",
-        so.name AS "office"
+    <sql id="userColumns">
+       a.id as id,
+       col.cname as college,
+       a.email as email,
+       a.nickname as nickname,
+       a.photo_path as photoPath,
+       a.open_id as openid
     </sql>
 
-    <sql id="attendanceJoins">
-        JOIN sys_user su ON su.id = a.uid
-        JOIN sys_office so ON so.id = su.office_id
+    <sql id="userJoins">
+        JOIN college col ON col.id = a.college_id
     </sql>
 
 
-    <select id="get" resultType="Attendance">
+    <select id="getUser" resultType="com.main.careerbro.modules.user.entity.User">
         SELECT
-        <include refid="attendanceColumns" />
-        FROM attendance a
-        <include refid="attendanceJoins" />
-        WHERE a.id = #{id}
+        <include refid="userColumns" />
+        FROM user a
+        <include refid="userJoins" />
+        WHERE a.open_id = #{openid}
     </select>
 
-    <select id="findList" resultType="Attendance">
-        SELECT
-        <include refid="attendanceColumns" />
-        FROM attendance a
-        <include refid="attendanceJoins" />
-
-        <where>
-            a.del_flag = #{DEL_FLAG_NORMAL}
-            <if test="name != null and name != ''">
-                AND a.name like
-                <if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
-                <if test="dbName == 'mysql'">CONCAT('%', #{name}, '%')</if>
-            </if>
-            <if test="office != null and office != ''">
-                AND so.name like
-                <if test="dbName == 'oracle'">'%'||#{office}||'%'</if>
-                <if test="dbName == 'mysql'">CONCAT('%', #{office}, '%')</if>
-            </if>
-            <if test="dateFrom != null and dateFrom != '' and dateTo != null and dateTo != ''">
-                AND a.date BETWEEN #{dateFrom} AND #{dateTo}
-            </if>
-        </where>
-        <choose>
-            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
-                ORDER BY ${page.orderBy}
-            </when>
-            <otherwise>
-                ORDER BY a.update_date DESC
-            </otherwise>
-        </choose>
-    </select>
-
-    <select id="findTodayAttend" resultType="Hashmap">
-        SELECT
-        su.id AS 'uid',
-        su. NAME AS 'name',
-        GROUP_CONCAT(DATE_FORMAT(ydc.signin_time,'%Y-%m-%d %H:%i:%s')) AS 'time'
-        FROM
-        sys_user su
-        LEFT JOIN yks_daily_checkattendance ydc ON ydc.login_name = su.login_name
-        WHERE
-        ydc.signin_time &gt; #{start} AND ydc.signin_time &lt; #{end}
-        GROUP BY
-        uid,
-        name
-    </select>
-
-    <select id="findAllList" resultType="Attendance">
-        SELECT
-        <include refid="attendanceColumns" />
-        FROM attendance a
-        <include refid="attendanceJoins" />
-        <where>
-            a.del_flag = #{DEL_FLAG_NORMAL}
-        </where>
-        <choose>
-            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
-                ORDER BY ${page.orderBy}
-            </when>
-            <otherwise>
-                ORDER BY a.update_date DESC
-            </otherwise>
-        </choose>
-    </select>
-
-    <insert id="insert">
-        INSERT INTO attendance(
+    <insert id="saveUser">
+        INSERT INTO user(
         id,
-        create_by,
-        create_date,
-        update_by,
-        update_date,
-        remarks,
-        del_flag,
-        morning,
-        noon,
-        afternoon,
-        night,
-        morning_status,
-        noon_status,
-        afternoon_status,
-        night_status,
-        date,
-        name,
-        uid,
-        status
+        college_id,
+        email,
+        nickname,
+        photo_path,
+        open_id,
+        register_time
         ) VALUES (
         #{id},
-        #{createBy.id},
-        #{createDate},
-        #{updateBy.id},
-        #{updateDate},
-        #{remarks},
-        #{delFlag},
-        #{morning},
-        #{noon},
-        #{afternoon},
-        #{night},
-        #{morningStatus},
-        #{noonStatus},
-        #{afternoonStatus},
-        #{nightStatus},
-        #{date},
-        #{name},
-        #{uid},
-        #{status}
+        #{college},
+        #{email},
+        #{nikeName},
+        #{photoPath},
+        #{openid},
+        NOW()
         )
     </insert>
 
-    <update id="update">
-        UPDATE attendance SET
-        update_by = #{updateBy.id},
-        update_date = #{updateDate},
-        remarks = #{remarks},
-        morning = #{morning},
-        noon = #{noon},
-        afternoon = #{afternoon},
-        night = #{night},
-        morning_status = #{morningStatus},
-        noon_status = #{noonStatus},
-        afternoon_status = #{afternoonStatus},
-        night_status = #{nightStatus},
-        date = #{date},
-        name = #{name},
-        uid = #{uid},
-        status = #{status}
-        WHERE id = #{id}
-    </update>
-
-
-    <!--物理删除 -->
-    <update id="delete">
-        DELETE FROM attendance
-        WHERE id = #{id}
-    </update>
-
-    <!--逻辑删除 -->
-    <update id="deleteByLogic">
-        UPDATE attendance SET
-        del_flag = #{DEL_FLAG_DELETE}
-        WHERE id = #{id}
-    </update>
-
-
-    <!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
-    <select id="findUniqueByProperty" resultType="Attendance"
-            statementType="STATEMENT">
-        select * FROM attendance where ${propertyName} =
-        '${value}'
-    </select>
-
-    <!-- 根据uid和时间记录 -->
-    <select id="getByUidAndTime" resultType="Hashmap">
-        SELECT
-        DATE_FORMAT (a.date, '%d') AS "date",
-        a.status
-        FROM attendance a
-        <include refid="attendanceJoins" />
-        <where>
-            a.uid = #{uid}
-            AND
-            a.date BETWEEN #{startTime}
-            AND
-            #{endTime}
-        </where>
-    </select>
 
 </mapper>
