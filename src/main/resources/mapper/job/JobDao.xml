@@ -4,14 +4,14 @@
 
     <sql id="jobColumns">
         a.id as id,
-        a.ename as eName,
-        a.cname as cName
+        a.cname as cName,
+        a.ename as eName
     </sql>
 
     <sql id="jobJoins">
     </sql>
 
-    <select id="getAlljob" resultType="com.main.careerbro.modules.job.entity.Job">
+    <select id="getAllJob" resultType="com.main.careerbro.modules.job.entity.Job">
         SELECT
         <include refid="jobColumns"/>
         FROM job a
