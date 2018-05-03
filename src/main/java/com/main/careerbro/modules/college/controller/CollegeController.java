@@ -5,6 +5,7 @@ import com.main.careerbro.common.jason.AjaxJson;
 import com.main.careerbro.modules.college.service.CollegeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedHashMap;
@@ -15,7 +16,7 @@ public class CollegeController {
 
     @Autowired
     CollegeService collegeService;
-    @RequestMapping("college")
+    @RequestMapping(method = RequestMethod.GET,value = "college")
     public AjaxJson getAllCollege(){
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
         map.put("data",collegeService.getAllCollege());

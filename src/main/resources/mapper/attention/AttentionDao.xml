@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.main.careerbro.modules.attention.dao.AttentionDao">
+
+    <sql id="attentionColumns">
+        a.id as id,
+        a.user_id as userId,
+        u.cname as user,
+        a.attention_id as attentionId
+    </sql>
+
+    <sql id="attentionJoins">
+        JOIN user u ON u.id = a.user_id
+--         JOIN corperation c ON c.id = a.attention_id
+--         JOIN job j ON j.id = a.attention_id
+    </sql>
+
+
+</mapper>

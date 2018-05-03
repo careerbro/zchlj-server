@@ -1,12 +1,12 @@
 package com.main.careerbro.modules.college.dao;
 
+import com.main.careerbro.modules.college.entity.College;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Component
 public interface CollegeDao {
-    public List<HashMap<String,String>> getAllCollege();
+    public List<College> getAllCollege();
 }
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.main.careerbro.modules.industry.dao.IndustryDao">
+
+    <sql id="industryColumns">
+        a.id as id,
+        a.ename as eName,
+        a.cname as cName
+    </sql>
+
+    <sql id="industryJoins">
+    </sql>
+
+    <select id="getAllIndustry" resultType="com.main.careerbro.modules.industry.entity.Industry">
+        SELECT
+        <include refid="industryColumns"/>
+        FROM industry a
+        <include refid="industryJoins"/>
+    </select>
+
+
+</mapper>
