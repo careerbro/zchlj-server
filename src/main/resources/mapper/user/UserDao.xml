@@ -4,15 +4,16 @@
 
     <sql id="userColumns">
        a.id as id,
-       col.cname as college,
+       a.open_id as openid,
+       a.petname as petName,
        a.email as email,
-       a.nickname as nickname,
-       a.photo_path as photoPath,
-       a.open_id as openid
+       col.cname as college,
+       a.photo_path as photoPath
+
     </sql>
 
     <sql id="userJoins">
-        JOIN college col ON col.id = a.college_id
+        LEFT JOIN college col ON col.id = a.college_id
     </sql>
 
 
@@ -29,7 +30,7 @@
         id,
         college_id,
         email,
-        nickname,
+        petname,
         photo_path,
         open_id,
         register_time
@@ -37,12 +38,24 @@
         #{id},
         #{college},
         #{email},
-        #{nikeName},
+        #{petName},
         #{photoPath},
         #{openid},
         NOW()
         )
     </insert>
+    
+    <update id="updateUser">
+        UPDATE user
+        SET email = #{email}
+            <if test="petName != null">
+                ,petname = #{petName}
+            </if>
+            <if test="college != null">
+                ,college_id = #{college}
+            </if>
+        WHERE id = #{id}
+    </update>
 
 
 </mapper>

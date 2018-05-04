@@ -19,7 +19,7 @@ public interface UserDao {
     public void saveUser(User user);
 
     /**
-     * 更新用户信息
+     * 更新用户信息(必须有email)
      * @param user
      */
     public void updateUser(User user);

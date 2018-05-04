@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.main.careerbro.modules.feedback.dao.feedbackDao">
+
+    <sql id="feedbackColumns">
+        a.id as id,
+        a.user_id as user_id,
+        a.contend as contend,
+        a.ftime as ftime,
+    </sql>
+
+    <sql id="feedbackJoins">
+    </sql>
+
+    <!--<select id="getAllfeedback" resultType="com.main.careerbro.modules.feedback.entity.feedback">-->
+        <!--SELECT-->
+        <!--<include refid="feedbackColumns"/>-->
+        <!--FROM user_feedback a-->
+        <!--<include refid="feedbackJoins"/>-->
+    <!--</select>-->
+    <insert id="saveFeedback">
+        INSERT INTO user_feedback(
+        id,
+        user_id,
+        contend,
+        ftime
+        )VALUES (
+        #{id},
+        #{userId},
+        #{contend},
+        NOW()
+        )
+    </insert>
+
+
+</mapper>

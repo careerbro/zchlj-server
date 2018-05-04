@@ -5,9 +5,9 @@
     <sql id="collegeColumns">
         a.id as id,
         c.cname as city,
-        a.cname as cname,
-        a.ename as ename,
-        a.sname as sname,
+        a.cname as cName,
+        a.ename as eName,
+        a.sname as sName,
         a.category as category,
         a.public_private as publicPrivate,
         a.level as level,

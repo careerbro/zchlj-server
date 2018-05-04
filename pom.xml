@@ -19,6 +19,19 @@
 	</parent>
 
 	<properties>
+		<!--  lucnene核心包 -->
+		<lucene-core.version>7.3.0</lucene-core.version>
+		<!-- lucnene解析包 -->
+		<lucene-queryparser.version>5.5.0</lucene-queryparser.version>
+		<!--  lucene 公共包分析器 -->
+		<lucene-analyzers-common.version>5.5.0</lucene-analyzers-common.version>
+		<!--  中文分词 -->
+		<lucene-analyzers-smartcn.version>5.5.0</lucene-analyzers-smartcn.version>
+		<!--  关键词高亮显示 -->
+		<lucene-highlighter.version>5.5.0</lucene-highlighter.version>
+		<!--ik中文分词器-->
+		<ik-analyzers.version>5.1.0</ik-analyzers.version>
+		<!--微信小程序SDK-->
         <weixin-java-miniapp.version>3.0.0</weixin-java-miniapp.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -74,6 +87,42 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<!--  lucnene核心包 -->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>${lucene-core.version}</version>
+		</dependency>
+		<!-- lucnene解析包 -->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-queryparser</artifactId>
+			<version>${lucene-queryparser.version}</version>
+		</dependency>
+		<!--  lucene 公共包分析器 -->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers-common</artifactId>
+			<version>${lucene-analyzers-common.version}</version>
+		</dependency>
+		<!--  中文分词 -->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers-smartcn</artifactId>
+			<version>${lucene-analyzers-smartcn.version}</version>
+		</dependency>
+		<!--  关键词高亮显示 -->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-highlighter</artifactId>
+			<version>${lucene-highlighter.version}</version>
+		</dependency>
+		<!--ik中文分词器-->
+		<dependency>
+			<groupId>cn.bestwu</groupId>
+			<artifactId>ik-analyzers</artifactId>
+			<version>${ik-analyzers.version}</version>
 		</dependency>
 	</dependencies>
 

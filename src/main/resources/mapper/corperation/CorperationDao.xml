@@ -4,13 +4,14 @@
 
     <sql id="corperationColumns">
         a.id as id,
-        c.cname as cName,
+        c.cname as city,
+        a.cname as cName,
         a.ename as eName,
         a.sname as sName
     </sql>
 
     <sql id="corperationJoins">
-        JOIN city c ON c.id = a.city_id
+        LEFT JOIN city c ON c.id = a.city_id
     </sql>
     
     <select id="getAllCorperation" resultType="com.main.careerbro.modules.corperation.entity.Corperation">

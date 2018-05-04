@@ -6,11 +6,14 @@ import com.main.careerbro.common.web.BaseController;
 import com.main.careerbro.modules.user.entity.User;
 import com.main.careerbro.modules.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 
 @RestController
@@ -20,6 +23,7 @@ public class UserController extends BaseController{
     private UserService userService;
     /**
      * 获取用户信息
+     * @param: openid
      */
     @RequestMapping(method = RequestMethod.GET,value = "user/{id}")
     public AjaxJson user(@PathVariable String id){
@@ -39,7 +43,23 @@ public class UserController extends BaseController{
      * 更新用户信息
      */
     @RequestMapping(method = RequestMethod.PUT,value = "user")
-    public AjaxJson updateUser(User user){
+    public AjaxJson updateUser(@RequestBody User user){
+//        try {
+//            StringBuffer sb = new StringBuffer() ;
+//            InputStream is = request.getInputStream();
+//            InputStreamReader isr = new InputStreamReader(is);
+//            BufferedReader br = new BufferedReader(isr);
+//            String s = "" ;
+//            while((s=br.readLine())!=null){
+//                sb.append(s) ;
+//            }
+//            String str =sb.toString();
+//            System.out.println(str);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        userService.updateUser(user);
+        System.out.println(user);
         return Ajax.success();
     }
     /**

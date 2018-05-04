@@ -9,21 +9,17 @@ public class User {
 //    openid
     @Getter @Setter private String openid;
 //    nikeName
-    @Getter @Setter private String nikeName;
+    @Getter @Setter private String petName;
 //    email
     @Getter @Setter private String email;
 //    school
     @Getter @Setter private String college;
 //    photo_path
     @Getter @Setter private String photoPath;
-//    city
-//    @Getter @Setter private String city;
-//    country
-//    @Getter @Setter private String country;
-//    gender
-//    @Getter @Setter private String gender;
-//    province
-//    @Getter @Setter private String province;
-//    language
-//    @Getter @Setter private String language;
+
+    @Override
+    public String toString(){
+        return "id:"+this.id+"  openid:"+this.openid+"  petName:"+this.petName
+                +"  email:"+this.email+"  college:"+this.college+"  photoPath:"+this.photoPath;
+    }
 }
