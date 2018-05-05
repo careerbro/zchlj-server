@@ -22,13 +22,13 @@
 		<!--  lucnene核心包 -->
 		<lucene-core.version>7.3.0</lucene-core.version>
 		<!-- lucnene解析包 -->
-		<lucene-queryparser.version>5.5.0</lucene-queryparser.version>
+		<lucene-queryparser.version>7.3.0</lucene-queryparser.version>
 		<!--  lucene 公共包分析器 -->
-		<lucene-analyzers-common.version>5.5.0</lucene-analyzers-common.version>
+		<lucene-analyzers-common.version>7.3.0</lucene-analyzers-common.version>
 		<!--  中文分词 -->
-		<lucene-analyzers-smartcn.version>5.5.0</lucene-analyzers-smartcn.version>
+		<lucene-analyzers-smartcn.version>7.3.0</lucene-analyzers-smartcn.version>
 		<!--  关键词高亮显示 -->
-		<lucene-highlighter.version>5.5.0</lucene-highlighter.version>
+		<lucene-highlighter.version>7.3.0</lucene-highlighter.version>
 		<!--ik中文分词器-->
 		<ik-analyzers.version>5.1.0</ik-analyzers.version>
 		<!--微信小程序SDK-->

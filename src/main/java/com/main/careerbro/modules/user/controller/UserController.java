@@ -44,22 +44,7 @@ public class UserController extends BaseController{
      */
     @RequestMapping(method = RequestMethod.PUT,value = "user")
     public AjaxJson updateUser(@RequestBody User user){
-//        try {
-//            StringBuffer sb = new StringBuffer() ;
-//            InputStream is = request.getInputStream();
-//            InputStreamReader isr = new InputStreamReader(is);
-//            BufferedReader br = new BufferedReader(isr);
-//            String s = "" ;
-//            while((s=br.readLine())!=null){
-//                sb.append(s) ;
-//            }
-//            String str =sb.toString();
-//            System.out.println(str);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         userService.updateUser(user);
-        System.out.println(user);
         return Ajax.success();
     }
     /**

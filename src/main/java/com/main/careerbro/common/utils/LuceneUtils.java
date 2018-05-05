@@ -3,8 +3,14 @@ package com.main.careerbro.common.utils;
 import com.main.careerbro.modules.college.entity.College;
 import com.main.careerbro.modules.college.service.CollegeService;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.document.*;
-import org.apache.lucene.index.*;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.StoredField;
+import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.IndexSearcher;
@@ -61,7 +67,8 @@ public class LuceneUtils {
 //            Document doc = new Document();
             // 4、为Document添加Field，是Document的一个子元素
             int i = 0;
-            for (College cb : dataCollege) {
+            for (College cb
+                    : dataCollege) {
                 Document doc = new Document();
                 addField2Document(doc, cb);
                 //将doc对象保存到索引库中
@@ -83,13 +90,14 @@ public class LuceneUtils {
     }
 
     // 搜索
-    public static List<HashMap<String, String>> search(String string) throws ParseException, IOException {
+    public static List<HashMap<String, String>> search(String string) throws IOException, ParseException {
         // Directory directory;
         List<HashMap<String, String>> data = new ArrayList<>();
-        // 获取user
+        // 获取college
 
-        CollegeService CollegeService = SpringConfigTool.getApplicationContext().getBean(CollegeService.class);
-        List<College> collegeList = CollegeService.getAllCollege();
+//        CollegeService CollegeService = SpringConfigTool.getApplicationContext().getBean(CollegeService.class);
+        System.out.println(string);
+//        List<College> collegeList = CollegeService.getAllCollege();
 
         Analyzer analyzer = new IKAnalyzer();
         // 1. 创建MultiFieldQueryParser搜索对象
@@ -106,6 +114,7 @@ public class LuceneUtils {
 
         // 6、根据TopDocs获取ScoreDoc对象
         ScoreDoc sdocs[] = tdoc.scoreDocs;
+        System.out.println(sdocs.length);
         for (ScoreDoc s : sdocs) {
             if (s.score > 0.2) {
                 HashMap<String, String> hashMap = new HashMap<>();

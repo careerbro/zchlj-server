@@ -1,5 +1,6 @@
 package com.main.careerbro;
 
+import com.main.careerbro.common.utils.LuceneUtils;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -18,10 +19,7 @@ public class CareerbroApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CareerbroApplication.class, args);
+		LuceneUtils.index();
 	}
 
-	@RequestMapping(value = "/",produces = "text/plain;charset=UTF-8")
-	String index() {
-		return "Hello Spring Boot!";
-	}
 }

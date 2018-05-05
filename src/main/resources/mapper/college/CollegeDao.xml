@@ -21,7 +21,7 @@
     </sql>
 
     <!--获取所有college-->
-    <select id="getAllCollege" resultType="hashmap">
+    <select id="getAllCollege" resultType="com.main.careerbro.modules.college.entity.College">
         SELECT
         <include refid="collegeColumns" />
         FROM college a
