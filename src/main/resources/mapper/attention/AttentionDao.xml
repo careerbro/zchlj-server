@@ -14,6 +14,13 @@
 --         JOIN corperation c ON c.id = a.attention_id
 --         JOIN job j ON j.id = a.attention_id
     </sql>
+    
+    <select id="getAllAttention" resultType="com.main.careerbro.modules.attention.entity.Attention">
+        SELECT
+        <include refid="attentionColumns"/>
+        FROM user_attention a
+        WHERE a.user_id = #{uid}
+    </select>
 
 
 </mapper>

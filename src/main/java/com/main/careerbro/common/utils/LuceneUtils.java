@@ -3,6 +3,7 @@ package com.main.careerbro.common.utils;
 import com.main.careerbro.modules.college.entity.College;
 import com.main.careerbro.modules.college.service.CollegeService;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StoredField;
@@ -13,6 +14,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
@@ -71,6 +73,7 @@ public class LuceneUtils {
                     : dataCollege) {
                 Document doc = new Document();
                 addField2Document(doc, cb);
+                System.out.println(doc);
                 //将doc对象保存到索引库中
                 indexWriter.addDocument(doc);
                 i++;
@@ -91,32 +94,29 @@ public class LuceneUtils {
 
     // 搜索
     public static List<HashMap<String, String>> search(String string) throws IOException, ParseException {
-        // Directory directory;
+
         List<HashMap<String, String>> data = new ArrayList<>();
-        // 获取college
 
-//        CollegeService CollegeService = SpringConfigTool.getApplicationContext().getBean(CollegeService.class);
-        System.out.println(string);
-//        List<College> collegeList = CollegeService.getAllCollege();
-
-        Analyzer analyzer = new IKAnalyzer();
+        Analyzer ikAnalyzer = new IKAnalyzer();
+        Analyzer enAnalyzer = new EnglishAnalyzer();
         // 1. 创建MultiFieldQueryParser搜索对象
-        String[] fields = { "cName","eName"};
-        MultiFieldQueryParser multiFieldQueryParser = new MultiFieldQueryParser(fields, analyzer);
+        QueryParser cnQueryParser = new QueryParser("cName",ikAnalyzer);
+        QueryParser enQueryParser = new QueryParser("eName",enAnalyzer);
         // 2、创建IndexReader
         IndexReader reader = DirectoryReader.open(directory);
         // 3、根据IndexReader创建IndexSearcher
         IndexSearcher searcher = new IndexSearcher(reader);
         // 4丶创建搜索对象
-        Query query = multiFieldQueryParser.parse(string);
+        Query cnQuery =  cnQueryParser.parse(string);
+        Query enQuery =  enQueryParser.parse(string);
         // 5、根据searcher搜索并且返回TopDocs
-        TopDocs tdoc = searcher.search(query, 10);// 只会显示10条内容
+        TopDocs cnTdoc = searcher.search(cnQuery, 10);// 只会显示10条内容
+        TopDocs enTdoc = searcher.search(enQuery, 10);
 
         // 6、根据TopDocs获取ScoreDoc对象
-        ScoreDoc sdocs[] = tdoc.scoreDocs;
-        System.out.println(sdocs.length);
+        ScoreDoc sdocs[] = cnTdoc.scoreDocs.length>enTdoc.scoreDocs.length? cnTdoc.scoreDocs : enTdoc.scoreDocs;
         for (ScoreDoc s : sdocs) {
-            if (s.score > 0.2) {
+//            if (s.score > 0.2) {
                 HashMap<String, String> hashMap = new HashMap<>();
                 // 7、根据searcher行业ScoreDoc获取具体的Document对象
                 Document document = searcher.doc(s.doc);
@@ -128,9 +128,9 @@ public class LuceneUtils {
                 hashMap.put("id", id);
                 hashMap.put("cName", cName);
                 hashMap.put("eName", eName);
-                hashMap.put("label", cName);
+//                hashMap.put("label", cName);
                 data.add(hashMap);
-            }
+//            }
         }
         // 9、关闭reader
         reader.close();
@@ -257,8 +257,8 @@ public class LuceneUtils {
         //不分词,不索引,储存
         doc.add(new StoredField("id", college.getId()));
         //分词,索引,不储存
-        doc.add(new TextField("cName", college.getCName(), Field.Store.NO));
-        doc.add(new TextField("eName", college.getEName(), Field.Store.NO));
+        doc.add(new TextField("cName", college.getCName(), Field.Store.YES));
+        doc.add(new TextField("eName", college.getEName(), Field.Store.YES));
     }
 
     // 删除文件
