@@ -16,7 +16,7 @@ import java.util.LinkedHashMap;
 public class AttentionController {
     @Autowired
     AttentionService attentionService;
-    @RequestMapping(method = RequestMethod.GET,value = "attention")
+    @RequestMapping(method = RequestMethod.GET,value = "attention/{uid}")
     public AjaxJson attention(@PathVariable String uid){
 
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
