@@ -24,17 +24,17 @@ public class TokenInterceptor implements HandlerInterceptor {
         logger.debug(httpServletRequest.getRequestURI());
 
         String token = httpServletRequest.getParameter("token");
-//        if (!StringUtils.isBlank(token)){
-//            boolean isLogin = redisService.isKeyExists(token);
-//            if (isLogin){
-//
-//            }
-//            else {
-//                return false;
-//            }
-//        }
-        System.out.println("进入到了TokenInterceptor");
-        return true;
+        if (!StringUtils.isBlank(token)){
+            boolean isLogin = redisService.isKeyExists(token);
+            if (isLogin){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+//        System.out.println("进入到了TokenInterceptor");
+        return false;
     }
 
 //    处理请求完成后视图渲染之前的处理操作

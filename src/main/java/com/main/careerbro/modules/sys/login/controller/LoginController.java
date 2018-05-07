@@ -16,8 +16,12 @@ import me.chanjar.weixin.common.exception.WxErrorException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.LinkedHashMap;
 
 
 @RestController
@@ -34,10 +38,12 @@ public class LoginController extends BaseController{
     /**
      * 微信发送jcode进行接口登录
      */
-    @RequestMapping("/login")
-    public AjaxJson login(@NonNull String jcode){
+    @RequestMapping(method = RequestMethod.GET,value = "login/{jcode}")
+    public AjaxJson login(@PathVariable @NonNull String jcode){
         String token = null;
         try {
+            System.out.println(jcode);
+            System.out.println(this.wxMaService.getWxMaConfig().getAppid());
             //获取session
             WxMaJscode2SessionResult session = this.wxMaService.getUserService().getSessionInfo(jcode);
             if (null!=session){
@@ -45,14 +51,19 @@ public class LoginController extends BaseController{
                 String sessionKey = session.getSessionKey();
                 if (!StringUtils.isBlank(openid)&&!StringUtils.isBlank(sessionKey)){
                     User user = userService.getUser(openid);
+                    System.out.println("11");
                     //已注册
                     if (null != user){
+                        System.out.println("22");
                         token = DigestUtils.md5Hex(sessionKey+openid);
                         redisService.put(token, openid, Time);
-                        return Ajax.success();
+                        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
+                        map.put("token",token);
+                        return Ajax.success(map);
                     }
                     //未注册
                     else {
+                        System.out.println("33");
                         return Ajax.error(AjaxEnum.REGISTER_ERROR);
                     }
                 }
@@ -62,6 +73,7 @@ public class LoginController extends BaseController{
             e.printStackTrace();
         }
 
+        System.out.println("44");
         //获取失败
         return Ajax.error(AjaxEnum.WxMaJscode2SessionResult_ERROR);
     }

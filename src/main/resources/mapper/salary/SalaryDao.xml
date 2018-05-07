@@ -4,14 +4,39 @@
 
     <sql id="salaryColumns">
         a.id as id,
+        c.cname as city,
+        j.cname as job,
+        u.petname as user,
+        col.cname as college,
+        i.canme as industry,
+        cor.cname as corperation,
+        a.year_salary_max as yearSalaryMax,
+        a.year_salary_min as yearSalaryMin,
+        a.month_salary as monthSalary,
+        a.month_num	as monthNum,
+        a.welfare as welfare,
+        a.college_level	as collegeLevel,
+        a.edu_background as eduBackGround,
+        a.offer_time as offerTime,
+        a.experience_month_num as experienceMonthNum,
+        a.agree_num	as agreeNum,
+        a.opp_num as oppNum,
+        a.gra_num as graNum,
+        a.share_num as shareNum,
+        a.reserve_num as reserveNum,
+        a.create_time as createTime,
+        a.update_time as updateTime
 
     </sql>
 
     <sql id="salaryJoins">
-        JOIN city c ON c.id = a.city_id
+        LEFT JOIN city c ON c.id = a.city_id
+        LEFT JOIN  job j ON j.id = a.job_id
+        LEFT JOIN user u ON u.id = user_id
+        LEFT JOIN college col ON col.id = college_id
+        LEFT JOIN industry i ON i.id = industry_id
+        LEFT JOIN corperation cor ON cor.id = cor_id
     </sql>
-
-
 
 
 </mapper>
