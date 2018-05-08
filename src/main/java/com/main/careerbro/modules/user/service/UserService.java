@@ -30,4 +30,8 @@ public class UserService {
     public void deleteUser(String id){
         userDao.deleteUser(id);
     }
+
+    public Integer getUserSum(){
+        return userDao.getUserSum();
+    }
 }

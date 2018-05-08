@@ -12,27 +12,27 @@ public class WxMaProperties {
     /**
      * 设置微信小程序的appid
      */
-    private String appid;
+    private String appid="wxd7abdd06de2298f5";
 
     /**
      * 设置微信小程序的Secret
      */
-    private String secret;
+    private String secret="4b54038f7991d55a7165052f1988e449";
 
     /**
      * 设置微信小程序的token
      */
-    private String token;
+    private String token="";
 
     /**
      * 设置微信小程序的EncodingAESKey
      */
-    private String aesKey;
+    private String aesKey="";
 
     /**
      * 消息格式，XML或者JSON
      */
-    private String msgDataFormat;
+    private String msgDataFormat="JSON";
 
     public String getAppid() {
         return this.appid;

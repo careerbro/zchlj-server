@@ -29,5 +29,10 @@ public interface UserDao {
      * @param id
      */
     public void deleteUser(String id);
+
+    /**
+     * 返回用户总数
+     */
+    public Integer getUserSum();
 }
 

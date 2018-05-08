@@ -54,4 +54,14 @@ public class UserController extends BaseController{
     public AjaxJson deleteUser(){
         return Ajax.success();
     }
+
+    /**
+     * 获取用户总数
+     */
+    @RequestMapping(method = RequestMethod.GET,value = "sum")
+    public AjaxJson getUserSum(){
+        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
+        map.put("sum",userService.getUserSum());
+        return Ajax.success(map);
+    }
 }

@@ -38,5 +38,88 @@
         LEFT JOIN corperation cor ON cor.id = cor_id
     </sql>
 
+    <select id="getSalaryByUser" resultType="com.main.careerbro.modules.salary.entity.Salary">
+        SELECT 
+        <include refid="salaryColumns"/>
+        <include refid="salaryJoins"/>
+        FROM salary a
+        WHERE a.user_id = #{userId}
+    </select>
 
+    <insert id="saveSalary">
+        INSERT INTO salary(
+        id,
+        city_id,
+        job_id,
+        user_id,
+        college_id,
+        industry_id,
+        cor_id,
+        year_salary_max,
+        year_salary_min,
+        month_salary,
+        month_num,
+        welfare,
+        college_level,
+        edu_background,
+        offer_time,
+        experience_month_num,
+        agree_num,
+        opp_num,
+        gra_num,
+        share_num,
+        reserve_num,
+        create_time,
+        update_time
+        )VALUES (
+        #{id},
+        #{cityId},
+        #{jobId},
+        #{userId},
+        #{collegeId},
+        #{industryId},
+        #{corId},
+        #{yearSalaryMax},
+        #{yearSalaryMin},
+        #{monthSalary},
+        #{monthNum},
+        #{welfare},
+        #{collegeLevel},
+        #{eduBackground},
+        #{offerTime},
+        #{experienceMonthNum},
+        #{agreeNum},
+        #{oppNum},
+        #{graNum},
+        #{shareNum},
+        #{reserveNum},
+        NOW(),
+        NOW()
+        )
+    </insert>
+
+    <update id="updateSalary">
+        SET city_id = #{cityId},
+        job_id = #{jobId},
+        user_id = #{userId},
+        college_id = #{collegeId},
+        industry_id = #{industryId},
+        cor_id = #{corId},
+        year_salary_max = #{yearSalaryMax},
+        year_salary_min = #{yearSalaryMin},
+        month_salary = #{monthSalary},
+        month_num = #{monthNum},
+        welfare = #{welfare},
+        college_level = #{collegeLevel},
+        edu_background = #{eduBackground},
+        offer_time = #{offerTime},
+        experience_month_num = #{experienceMonthNum},
+        agree_num = #{agreeNum},
+        opp_num = #{oppNum},
+        gra_num = #{graNum},
+        share_num = #{shareNum},
+        reserve_num = #{reserveNum},
+        update_time = NOW()
+        WHERE id = #{id}
+    </update>
 </mapper>

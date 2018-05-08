@@ -24,6 +24,11 @@
         <include refid="userJoins" />
         WHERE a.open_id = #{openid}
     </select>
+    
+    <select id="getUserSum" resultType="Integer">
+        SELECT count(a.id)
+        FROM user a
+    </select>
 
     <insert id="saveUser">
         INSERT INTO user(
