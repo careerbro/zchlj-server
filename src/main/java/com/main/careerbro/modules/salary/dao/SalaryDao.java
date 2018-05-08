@@ -27,4 +27,10 @@ public interface SalaryDao {
      * @return
      */
     public List<Salary> getSalaryById(String id);
+
+    /**
+     * 保存薪资
+     * @param salary
+     */
+    public void saveSalary(Salary salary);
 }

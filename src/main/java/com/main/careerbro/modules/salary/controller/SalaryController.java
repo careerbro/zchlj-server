@@ -2,12 +2,10 @@ package com.main.careerbro.modules.salary.controller;
 
 import com.main.careerbro.common.jason.Ajax;
 import com.main.careerbro.common.jason.AjaxJson;
+import com.main.careerbro.modules.salary.entity.Salary;
 import com.main.careerbro.modules.salary.service.SalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
 
@@ -37,5 +35,11 @@ public class SalaryController {
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
         map.put("data",salaryService.getSalaryById(id));
         return Ajax.success(map);
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "salary")
+    public AjaxJson saveSalary(@RequestBody Salary salary){
+        salaryService.saveSalary(salary);
+        return Ajax.success();
     }
 }
