@@ -14,13 +14,31 @@
 --         JOIN corperation c ON c.id = a.attention_id
 --         JOIN job j ON j.id = a.attention_id
     </sql>
-    
+
+    <!--关注的公司:1,关注的岗位:2-->
     <select id="getAllAttention" resultType="com.main.careerbro.modules.attention.entity.Attention">
         SELECT
         <include refid="attentionColumns"/>
         FROM user_attention a
         WHERE a.user_id = #{uid}
+        AND  a.category = #{category}
+        ORDER BY a.ftime
     </select>
 
+    <insert id="saveAttention">
+        INSERT INTO user_attention(
+        id,
+        user_id,
+        attention_id,
+        category,
+        ftime
+        )VALUES (
+        #{id},
+        #{userId},
+        #{attentionId},
+        #{category},
+        NOW()
+        )
+    </insert>
 
 </mapper>

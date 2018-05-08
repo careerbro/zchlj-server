@@ -21,7 +21,7 @@ public class SalaryController {
     @RequestMapping(method = RequestMethod.GET,value = "user/{id}")
     public AjaxJson getByUserId(@PathVariable String id){
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("data",salaryService.getByUserId(id));
+        map.put("data",salaryService.getSalaryByUser(id));
         return Ajax.success(map);
     }
 
@@ -29,6 +29,13 @@ public class SalaryController {
     public AjaxJson getAllSalary(){
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
         map.put("data",salaryService.getAllSalary());
+        return Ajax.success(map);
+    }
+
+    @RequestMapping(method = RequestMethod.GET,value = "salary/{id}")
+    public AjaxJson getSalaryById(@PathVariable String id){
+        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
+        map.put("data",salaryService.getSalaryById(id));
         return Ajax.success(map);
     }
 }

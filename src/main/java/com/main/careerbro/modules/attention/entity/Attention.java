@@ -9,6 +9,6 @@ public class Attention {
     @Getter @Setter private String user;
     @Getter @Setter private String attendId;
     @Getter @Setter private String attend;
-    @Getter @Setter private String category;
+    @Getter @Setter private Integer category;
     @Getter @Setter private String time;
 }

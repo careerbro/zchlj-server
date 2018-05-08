@@ -44,6 +44,24 @@
         <include refid="salaryJoins"/>
         FROM salary a
         WHERE a.user_id = #{userId}
+        ORDER BY a.create_time AND a.update_time
+    </select>
+
+    <select id="getSalaryById" resultType="com.main.careerbro.modules.salary.entity.Salary">
+        SELECT
+        <include refid="salaryColumns"/>
+        <include refid="salaryJoins"/>
+        FROM salary a
+        WHERE a.id = #{id}
+        ORDER BY a.create_time AND a.update_time
+    </select>
+
+    <select id="getAllSalary" resultType="com.main.careerbro.modules.salary.entity.Salary">
+        SELECT
+        <include refid="salaryColumns"/>
+        <include refid="salaryJoins"/>
+        FROM salary a
+        ORDER BY a.create_time AND a.update_time
     </select>
 
     <insert id="saveSalary">

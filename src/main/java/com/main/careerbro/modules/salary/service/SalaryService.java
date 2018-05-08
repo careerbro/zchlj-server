@@ -13,11 +13,15 @@ public class SalaryService {
     @Autowired
     SalaryDao salaryDao;
 
-    public List<Salary> getByUserId(String usrId){
-        return salaryDao.getByUserId(usrId);
+    public List<Salary> getSalaryByUser(String usrId){
+        return salaryDao.getSalaryByUser(usrId);
     }
 
     public List<Salary> getAllSalary(){
         return salaryDao.getAllSalary();
+    }
+
+    public List<Salary> getSalaryById(String id){
+        return salaryDao.getSalaryById(id);
     }
 }

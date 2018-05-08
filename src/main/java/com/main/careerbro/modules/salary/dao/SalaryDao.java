@@ -13,11 +13,18 @@ public interface SalaryDao {
      * @param usrId
      * @return
      */
-    public List<Salary> getByUserId(String usrId);
+    public List<Salary> getSalaryByUser(String usrId);
 
     /**
      * 获取所有薪资
      * @return
      */
     public List<Salary> getAllSalary();
+
+    /**
+     * 根据id返回薪资
+     * @param id
+     * @return
+     */
+    public List<Salary> getSalaryById(String id);
 }

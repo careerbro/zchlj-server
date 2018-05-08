@@ -7,14 +7,17 @@ import com.main.careerbro.modules.feedback.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("feedback")
 @RestController
 public class FeedbackController {
+
     @Autowired
     FeedbackService feedbackService;
-    @RequestMapping("feedback")
+
+    @RequestMapping(method = RequestMethod.POST,value = "feedback")
     public AjaxJson saveFeedback(@RequestBody Feedback feedback){
         feedbackService.saveFeedback(feedback);
         return Ajax.success();

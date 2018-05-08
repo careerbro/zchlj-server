@@ -51,10 +51,8 @@ public class LoginController extends BaseController{
                 String sessionKey = session.getSessionKey();
                 if (!StringUtils.isBlank(openid)&&!StringUtils.isBlank(sessionKey)){
                     User user = userService.getUser(openid);
-                    System.out.println("11");
                     //已注册
                     if (null != user){
-                        System.out.println("22");
                         token = DigestUtils.md5Hex(sessionKey+openid);
                         redisService.put(token, openid, Time);
                         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
@@ -63,7 +61,6 @@ public class LoginController extends BaseController{
                     }
                     //未注册
                     else {
-                        System.out.println("33");
                         return Ajax.error(AjaxEnum.REGISTER_ERROR);
                     }
                 }
