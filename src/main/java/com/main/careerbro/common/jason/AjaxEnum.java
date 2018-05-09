@@ -9,6 +9,7 @@ public enum AjaxEnum {
     UNKOWN_ERROR("-1","未知错误"),
     REGISTER_ERROR("101","未注册"),
     WxMaJscode2SessionResult_ERROR("102","获取sessionKey失败"),
+    NO_COMMENTS("103","该用户没有评论"),
     SUCCESS("0","操作成功");
 
     @Getter

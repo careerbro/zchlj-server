@@ -20,4 +20,16 @@ public interface CommentDao {
      * @return
      */
     public List<Comment> getByUserId(String userId);
+
+    /**
+     * 保存评论
+     * @param comment
+     */
+    public void saveComment(Comment comment);
+
+    /**
+     * 点赞
+     * @param id
+     */
+    public void updateAgree(String id);
 }

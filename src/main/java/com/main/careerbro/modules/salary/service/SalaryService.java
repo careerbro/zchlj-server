@@ -22,13 +22,17 @@ public class SalaryService {
         return salaryDao.getAllSalary();
     }
 
-    public List<Salary> getSalaryById(String id){
+    public Salary getSalaryById(String id){
         return salaryDao.getSalaryById(id);
     }
 
     public void saveSalary(Salary salary){
 
-        if(salary.getId().isEmpty()) salary.setId(UUID.randomUUID().toString().replaceAll("-",""));
+        salary.setId(UUID.randomUUID().toString().replaceAll("-",""));
         salaryDao.saveSalary(salary);
+    }
+
+    public void updateSalary(Salary salary){
+        salaryDao.updateSalary(salary);
     }
 }

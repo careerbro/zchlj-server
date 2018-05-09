@@ -14,7 +14,7 @@ public class FeedbackService {
     FeedbackDao feedbackDao;
     @Transactional
     public void saveFeedback(Feedback feedback){
-        if(feedback.getId().isEmpty()) feedback.setId(UUID.randomUUID().toString().replaceAll("-",""));
+        feedback.setId(UUID.randomUUID().toString().replaceAll("-",""));
         feedbackDao.saveFeedback(feedback);
     }
 }

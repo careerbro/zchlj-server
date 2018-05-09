@@ -20,7 +20,7 @@ public class UserService {
 
     @Transactional
     public void saveUser(User user){
-        if(user.getId().isEmpty()) user.setId(UUID.randomUUID().toString().replaceAll("-",""));
+         user.setId(UUID.randomUUID().toString().replaceAll("-",""));
          userDao.saveUser(user);
     }
 

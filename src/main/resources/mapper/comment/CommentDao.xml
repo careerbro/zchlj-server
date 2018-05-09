@@ -32,4 +32,27 @@
         WHERE a.user_id = u.id
     </select>
 
+    <insert id="saveComment">
+        INSERT INTO comments(
+        id,
+        user_id,
+        salary_id,
+        contend,
+        time,
+        agree_num
+        )VALUES (
+        #{id},
+        #{userId},
+        #{salaryId},
+        #{contend},
+        NOW(),
+        0
+        )
+    </insert>
+    
+    <update id="updateComment">
+        UPDATE comments
+        SET agree_num = agree_num + 1
+        WHERE id = #{id}
+    </update>
 </mapper>

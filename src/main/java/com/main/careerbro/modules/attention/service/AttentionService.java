@@ -16,12 +16,14 @@ public class AttentionService {
     AttentionDao attentionDao;
 
     public List<Attention> getAllAttention(String uid, Integer category){
+
         return attentionDao.getAllAttention(uid,category);
     }
 
     @Transactional
     public void saveAttention(Attention attention){
-        if(attention.getId().isEmpty()) attention.setId(UUID.randomUUID().toString());
+
+        attention.setId(UUID.randomUUID().toString());
         attentionDao.saveAttention(attention);
     }
 }
