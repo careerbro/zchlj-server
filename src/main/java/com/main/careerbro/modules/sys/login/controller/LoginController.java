@@ -33,7 +33,7 @@ public class LoginController extends BaseController{
     private UserService userService;
     @Autowired
     private RedisServiceImpl redisService;
-    private static long Time = 600;
+    private static long Time = 3600;
 
     /**
      * 微信发送jcode进行接口登录

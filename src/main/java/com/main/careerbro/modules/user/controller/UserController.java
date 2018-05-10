@@ -2,6 +2,7 @@ package com.main.careerbro.modules.user.controller;
 
 import com.main.careerbro.common.jason.Ajax;
 import com.main.careerbro.common.jason.AjaxJson;
+import com.main.careerbro.common.redis.RedisServiceImpl;
 import com.main.careerbro.common.web.BaseController;
 import com.main.careerbro.modules.user.entity.User;
 import com.main.careerbro.modules.user.service.UserService;
@@ -21,6 +22,8 @@ import java.util.LinkedHashMap;
 public class UserController extends BaseController{
     @Autowired
     private UserService userService;
+
+    private RedisServiceImpl redisService;
     /**
      * 获取用户信息
      * @param: openid
@@ -36,7 +39,9 @@ public class UserController extends BaseController{
      * 新建用户信息
      */
     @RequestMapping(method = RequestMethod.POST,value = "user")
-    public AjaxJson newUser(User user){
+    public AjaxJson newUser(HttpServletRequest httpServletRequest,@RequestBody User user){
+        user.setOpenid(redisService.get(httpServletRequest.getParameter("token")).toString());
+        userService.saveUser(user);
         return Ajax.success();
     }
     /**
