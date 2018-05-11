@@ -1,5 +1,7 @@
 package com.main.careerbro.modules.sys.interceptor;
 
+import com.main.careerbro.common.jason.Ajax;
+import com.main.careerbro.common.jason.AjaxEnum;
 import com.main.careerbro.common.redis.RedisServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -30,11 +32,15 @@ public class TokenInterceptor implements HandlerInterceptor {
                 return true;
             }
             else {
+                Ajax.error(AjaxEnum.TOKEN_ERROR);
                 return false;
             }
         }
+        else {
+            Ajax.error(AjaxEnum.NO_TOKEN);
+            return false;
+        }
 //        System.out.println("进入到了TokenInterceptor");
-        return false;
     }
 
 //    处理请求完成后视图渲染之前的处理操作
