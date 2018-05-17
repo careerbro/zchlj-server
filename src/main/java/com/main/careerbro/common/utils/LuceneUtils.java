@@ -55,7 +55,20 @@ public class LuceneUtils {
 
         CollegeService collegeService = SpringConfigTool.getApplicationContext().getBean(CollegeService.class);
         List<College> dataCollege = collegeService.getAllCollege();
-        //Analyzer analyzer = new IKAnalyzer();//中文分词
+        /*1） 标准分词技术（StandardAnalyzer）：标准分词技术对英文来说是不错的，把单词分成一个一个的词根，但是对于中文来说，只是简单的把中文分成一个一个的汉字。
+
+        2）IK中文分词器（IKAnalyzer）：结合词典分词和文法分析算法的中文分词技术，能够对词典进行扩展，是一个很好的中文分词器。
+
+        3）空格分词器（WhitespaceAnalyzer）：按照空格切分字符串。
+
+        4）简单分词器（SimpleAnalyzer）：根据标点符号分词。
+
+        5）二分法分词器（CJKAnalyzer）：二分法分词技术中每个汉字都会和它前边和后边的汉字组成一个词，也就是说每个汉字都会出现两次，除了首字和末字（前提是纯汉字，没有英文，因为英文会根据词根来分词），这种分词技术会有太多的词，会产生太多冗余。
+
+        6）关键词分词器（KeywordAnalyzer）：不进行分割。
+
+        7）被忽略词分词器（StopAnalyzer）：被忽略词如标点符号，这种分词技术和SimpleAnalyzer结果很像。
+        */
 
         Analyzer analyzer = new StandardAnalyzer();//标准分词
         //创建索引写入配置
