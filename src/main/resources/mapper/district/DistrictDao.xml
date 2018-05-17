@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.main.careerbro.modules.district.dao.DistrictDao">
+
+    <sql id="districtColumns">
+        a.id as id,
+        a.place_level as placeLevel,
+        a.country as country
+        a.state as state,
+        a.city as city,
+        a.region as region,
+        a.place_code as placeCode
+    </sql>
+
+    <sql id="districtJoins">
+    </sql>
+    
+    <select id="getAllDistrict" resultType="com.main.careerbro.modules.district.entity.District">
+        SELECT
+        <include refid="districtColumns"/>
+        FROM district a
+    </select>
+
+</mapper>

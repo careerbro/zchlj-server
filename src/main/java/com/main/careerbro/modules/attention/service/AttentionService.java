@@ -26,4 +26,9 @@ public class AttentionService {
         attention.setId(UUID.randomUUID().toString());
         attentionDao.saveAttention(attention);
     }
+
+    public void cancelAttend(String id){
+
+        attentionDao.cancelAttend(id);
+    }
 }

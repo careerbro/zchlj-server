@@ -22,6 +22,7 @@
         FROM user_attention a
         WHERE a.user_id = #{uid}
         AND  a.category = #{category}
+        AND a.validity = 1
         ORDER BY a.ftime
     </select>
 
@@ -31,14 +32,22 @@
         user_id,
         attention_id,
         category,
-        ftime
+        ftime,
+        validity
         )VALUES (
         #{id},
         #{userId},
         #{attentionId},
         #{category},
-        NOW()
+        NOW(),
+        1
         )
     </insert>
+
+    <update id="cancelAttend">
+        UPDATE user_attention
+        SET validity = -1
+        WHERE id = #{id}
+    </update>
 
 </mapper>

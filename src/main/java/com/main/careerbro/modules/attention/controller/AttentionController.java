@@ -15,7 +15,7 @@ public class AttentionController {
     @Autowired
     AttentionService attentionService;
 
-    @RequestMapping(method = RequestMethod.GET,value = "attention/corperation/{uid}")
+    @RequestMapping(method = RequestMethod.GET,value = "corperation/{uid}")
     public AjaxJson getAttentionCorperation(@PathVariable String uid){
 
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
@@ -23,7 +23,7 @@ public class AttentionController {
         return Ajax.success(map);
     }
 
-    @RequestMapping(method = RequestMethod.GET,value = "attention/industry/{uid}")
+    @RequestMapping(method = RequestMethod.GET,value = "industry/{uid}")
     public AjaxJson getAttentionIndustry(@PathVariable String uid){
 
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
@@ -31,7 +31,7 @@ public class AttentionController {
         return Ajax.success(map);
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "attention/corperation")
+    @RequestMapping(method = RequestMethod.POST,value = "corperation")
     public AjaxJson saveAttentionCorperation(@RequestBody Attention attention){
 
         attention.setCategory(1);
@@ -39,11 +39,18 @@ public class AttentionController {
         return Ajax.success();
     }
 
-    @RequestMapping(method = RequestMethod.GET,value = "attention/industry")
+    @RequestMapping(method = RequestMethod.GET,value = "industry")
     public AjaxJson saveAttentionIndustry(@RequestBody Attention attention){
 
         attention.setCategory(2);
         attentionService.saveAttention(attention);
+        return Ajax.success();
+    }
+
+    @RequestMapping(method = RequestMethod.PUT,value = "cancelAttend")
+    public AjaxJson cancelAttend(String id){
+
+        attentionService.cancelAttend(id);
         return Ajax.success();
     }
 }

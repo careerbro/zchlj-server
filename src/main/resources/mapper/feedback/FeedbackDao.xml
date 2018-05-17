@@ -7,6 +7,8 @@
         a.user_id as user_id,
         a.contend as contend,
         a.ftime as ftime,
+        a.contact as contact,
+        a.category as category
     </sql>
 
     <sql id="feedbackJoins">
@@ -23,12 +25,16 @@
         id,
         user_id,
         contend,
-        ftime
+        ftime,
+        category,
+        contact
         )VALUES (
         #{id},
         #{userId},
         #{contend},
-        NOW()
+        NOW(),
+        #{category},
+        #{contact}
         )
     </insert>
 

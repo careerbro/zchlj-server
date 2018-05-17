@@ -20,4 +20,10 @@ public interface AttentionDao {
      * @param attention
      */
     public void saveAttention(Attention attention);
+
+    /**
+     * 取消关注
+     * @param id
+     */
+    public void cancelAttend(String id);
 }
