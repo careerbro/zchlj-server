@@ -4,6 +4,7 @@ import com.main.careerbro.modules.college.entity.College;
 import com.main.careerbro.modules.college.service.CollegeService;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StoredField;
@@ -54,8 +55,9 @@ public class LuceneUtils {
 
         CollegeService collegeService = SpringConfigTool.getApplicationContext().getBean(CollegeService.class);
         List<College> dataCollege = collegeService.getAllCollege();
-        Analyzer analyzer = new IKAnalyzer();//中文分词
+        //Analyzer analyzer = new IKAnalyzer();//中文分词
 
+        Analyzer analyzer = new StandardAnalyzer();//标准分词
         //创建索引写入配置
         IndexWriterConfig indexWriterConfig = new IndexWriterConfig(analyzer);
 
