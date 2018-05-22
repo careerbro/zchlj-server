@@ -88,7 +88,6 @@ public class LuceneUtils {
                     : dataCollege) {
                 Document doc = new Document();
                 addField2Document(doc, cb);
-                System.out.println(doc);
                 //将doc对象保存到索引库中
                 indexWriter.addDocument(doc);
                 i++;

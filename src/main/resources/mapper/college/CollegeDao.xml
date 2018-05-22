@@ -4,7 +4,7 @@
 
     <sql id="collegeColumns">
         a.id as id,
-        c.cname as city,
+        district_name as city,
         a.cname as cName,
         a.ename as eName,
         a.sname as sName,
@@ -17,7 +17,7 @@
     </sql>
 
     <sql id="collegeJoins">
-        JOIN city c ON c.id = a.city_id
+        LEFT JOIN district d ON d.id = a.city_id
     </sql>
 
     <!--获取所有college-->
