@@ -30,7 +30,7 @@
     </sql>
 
     <sql id="salaryJoins">
-        LEFT JOIN city c ON c.id = a.city_id
+        LEFT JOIN dstrict c ON c.id = a.city_id
         LEFT JOIN  job j ON j.id = a.job_id
         LEFT JOIN user u ON u.id = user_id
         LEFT JOIN college col ON col.id = college_id
@@ -106,11 +106,11 @@
         #{eduBackground},
         #{offerTime},
         #{experienceMonthNum},
-        #{agreeNum},
-        #{oppNum},
-        #{graNum},
-        #{shareNum},
-        #{reserveNum},
+        0,
+        0,
+        0,
+        0,
+        0,
         NOW(),
         NOW()
         )
@@ -133,11 +133,6 @@
         edu_background = #{eduBackground},
         offer_time = #{offerTime},
         experience_month_num = #{experienceMonthNum},
-        agree_num = #{agreeNum},
-        opp_num = #{oppNum},
-        gra_num = #{graNum},
-        share_num = #{shareNum},
-        reserve_num = #{reserveNum},
         update_time = NOW()
         WHERE id = #{id}
     </update>

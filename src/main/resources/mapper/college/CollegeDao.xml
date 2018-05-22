@@ -5,6 +5,7 @@
     <sql id="collegeColumns">
         a.id as id,
         district_name as city,
+        district_name as districtName,
         a.cname as cName,
         a.ename as eName,
         a.sname as sName,

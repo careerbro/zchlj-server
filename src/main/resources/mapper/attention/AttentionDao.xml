@@ -6,12 +6,13 @@
         a.id as id,
         a.user_id as userId,
         u.cname as user,
-        a.attention_id as attentionId
+        a.attention_id as attentionId,
+        c.cname as attend
     </sql>
 
     <sql id="attentionJoins">
         JOIN user u ON u.id = a.user_id
---         JOIN corperation c ON c.id = a.attention_id
+        JOIN corperation c ON c.id = a.attention_id
 --         JOIN job j ON j.id = a.attention_id
     </sql>
 
@@ -37,7 +38,7 @@
         )VALUES (
         #{id},
         #{userId},
-        #{attentionId},
+        #{attendId},
         #{category},
         NOW(),
         1

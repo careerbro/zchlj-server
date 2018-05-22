@@ -6,6 +6,7 @@ import lombok.Setter;
 public class College {
     @Getter @Setter private String id;
     @Getter @Setter private String city;
+    @Getter @Setter private String districtName;
     @Getter @Setter private String cName;
     @Getter @Setter private String eName;
     @Getter @Setter private String sName;
