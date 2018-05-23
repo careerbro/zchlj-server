@@ -111,7 +111,7 @@ public class LuceneUtils {
 
         List<HashMap<String, String>> data = new ArrayList<>();
 
-        Analyzer ikAnalyzer = new IKAnalyzer();
+        Analyzer ikAnalyzer = new StandardAnalyzer();
         Analyzer enAnalyzer = new EnglishAnalyzer();
         // 1. 创建MultiFieldQueryParser搜索对象
         QueryParser cnQueryParser = new QueryParser("cName",ikAnalyzer);
@@ -129,6 +129,7 @@ public class LuceneUtils {
 
         // 6、根据TopDocs获取ScoreDoc对象
         ScoreDoc sdocs[] = cnTdoc.scoreDocs.length>enTdoc.scoreDocs.length? cnTdoc.scoreDocs : enTdoc.scoreDocs;
+
         for (ScoreDoc s : sdocs) {
 //            if (s.score > 0.2) {
                 HashMap<String, String> hashMap = new HashMap<>();
@@ -272,6 +273,7 @@ public class LuceneUtils {
         doc.add(new StoredField("id", college.getId()));
         //分词,索引,不储存
         doc.add(new TextField("cName", college.getCName(), Field.Store.YES));
+        if(null!=college.getEName())
         doc.add(new TextField("eName", college.getEName(), Field.Store.YES));
     }
 

@@ -7,5 +7,5 @@ import java.util.List;
 
 @Component
 public interface CorperationDao {
-    public List<Corperation> getAllCorperation();
+    public List<Corperation> getCorperation(String temp);
 }

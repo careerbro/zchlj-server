@@ -12,7 +12,7 @@ public class CorperationService {
     @Autowired
     CorperationDao corperationDao;
 
-    public List<Corperation> getAllCorperation(){
-        return corperationDao.getAllCorperation();
+    public List<Corperation> getCorperation(String temp){
+        return corperationDao.getCorperation(temp);
     }
 }

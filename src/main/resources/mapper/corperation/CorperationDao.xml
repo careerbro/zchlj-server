@@ -14,11 +14,13 @@
         LEFT JOIN city c ON c.id = a.city_id
     </sql>
     
-    <select id="getAllCorperation" resultType="com.main.careerbro.modules.corperation.entity.Corperation">
+    <select id="getCorperation" resultType="com.main.careerbro.modules.corperation.entity.Corperation">
         SELECT 
         <include refid="corperationColumns"/>
         FROM corperation a
         <include refid="corperationJoins"/>
+        WHERE a.cname LIKE #{temp}
+        AND rownum &lt; 6
     </select>
 
 

@@ -8,5 +8,5 @@ import java.util.List;
 @Component
 public interface JobDao {
 
-    public List<Job> getAllJob();
+    public List<Job> getJob(String temp);
 }

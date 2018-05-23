@@ -4,6 +4,7 @@ import com.main.careerbro.common.jason.Ajax;
 import com.main.careerbro.common.jason.AjaxJson;
 import com.main.careerbro.modules.industry.service.IndustryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,11 +17,11 @@ public class IndustryController {
     @Autowired
     IndustryService industryService;
 
-    @RequestMapping(method = RequestMethod.GET,value = "industry")
-    public AjaxJson getAllIndustry(){
+    @RequestMapping(method = RequestMethod.GET,value = "industry/{temp}")
+    public AjaxJson getAllIndustry(@PathVariable String temp){
 
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("data",industryService.getAllIndustry());
+        map.put("data",industryService.getIndustry(temp));
         return Ajax.success(map);
     }
 }
