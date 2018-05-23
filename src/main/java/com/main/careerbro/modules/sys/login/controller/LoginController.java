@@ -51,17 +51,17 @@ public class LoginController extends BaseController{
                 String sessionKey = session.getSessionKey();
                 if (!StringUtils.isBlank(openid)&&!StringUtils.isBlank(sessionKey)){
                     User user = userService.getUser(openid);
+                    token = DigestUtils.md5Hex(sessionKey+openid);
+                    redisService.put(token, openid, Time);
+                    LinkedHashMap<String,Object> map = new LinkedHashMap<>();
+                    map.put("token",token);
                     //已注册
                     if (null != user){
-                        token = DigestUtils.md5Hex(sessionKey+openid);
-                        redisService.put(token, openid, Time);
-                        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-                        map.put("token",token);
                         return Ajax.success(map);
                     }
                     //未注册
                     else {
-                        return Ajax.error(AjaxEnum.REGISTER_ERROR);
+                        return Ajax.error(AjaxEnum.REGISTER_ERROR,map);
                     }
                 }
             }

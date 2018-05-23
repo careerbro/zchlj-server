@@ -38,7 +38,8 @@
         petname,
         photo_path,
         open_id,
-        register_time
+        register_time,
+        update_time
         ) VALUES (
         #{id},
         #{college},
@@ -46,6 +47,7 @@
         #{petName},
         #{photoPath},
         #{openid},
+        NOW(),
         NOW()
         )
     </insert>

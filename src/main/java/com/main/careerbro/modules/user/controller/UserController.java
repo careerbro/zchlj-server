@@ -23,6 +23,7 @@ public class UserController extends BaseController{
     @Autowired
     private UserService userService;
 
+    @Autowired
     private RedisServiceImpl redisService;
     /**
      * 获取用户信息
