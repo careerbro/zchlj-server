@@ -18,7 +18,7 @@ public class IndustryController {
     IndustryService industryService;
 
     @RequestMapping(method = RequestMethod.GET,value = "industry/{temp}")
-    public AjaxJson getAllIndustry(@PathVariable String temp){
+    public AjaxJson getIndustry(@PathVariable String temp){
 
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
         map.put("data",industryService.getIndustry(temp));

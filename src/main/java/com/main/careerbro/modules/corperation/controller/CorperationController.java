@@ -18,7 +18,7 @@ public class CorperationController {
     CorperationService corperationService;
 
     @RequestMapping(method = RequestMethod.GET,value = "corperation/{temp}")
-    public AjaxJson getAllCorperation(@PathVariable String temp){
+    public AjaxJson getCorperation(@PathVariable String temp){
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
         map.put("data",corperationService.getCorperation(temp));
         return Ajax.success(map);

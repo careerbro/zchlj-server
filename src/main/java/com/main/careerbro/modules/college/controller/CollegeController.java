@@ -23,7 +23,7 @@ public class CollegeController {
     @Autowired
     CollegeService collegeService;
     @RequestMapping(method = RequestMethod.GET,value = "college/{temp}")
-    public AjaxJson getAllCollege(@PathVariable String temp) throws IOException, ParseException, InterruptedException {
+    public AjaxJson getCollege(@PathVariable String temp) throws IOException, ParseException, InterruptedException {
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
 //        Analyzer analyzer = new IKAnalyzer();
 //        System.out.println(analyzer.tokenStream("cName","北京大学"));

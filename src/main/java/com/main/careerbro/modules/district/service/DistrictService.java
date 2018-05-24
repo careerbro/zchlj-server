@@ -13,7 +13,7 @@ public class DistrictService {
     @Autowired
     DistrictDao districtDao;
 
-    public List<District> getAllDistrict(){
-        return districtDao.getAllDistrict();
+    public List<District> getDistrict(String temp){
+        return districtDao.getDistrict(temp);
     }
 }

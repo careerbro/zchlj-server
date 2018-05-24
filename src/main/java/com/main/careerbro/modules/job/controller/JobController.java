@@ -17,7 +17,7 @@ public class JobController {
     @Autowired
     JobService jobService;
     @RequestMapping(method = RequestMethod.GET,value = "job/{temp}")
-    public AjaxJson getAllJob(@PathVariable String temp){
+    public AjaxJson getJob(@PathVariable String temp){
 
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
         map.put("data",jobService.getJob(temp));

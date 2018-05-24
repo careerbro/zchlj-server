@@ -8,5 +8,5 @@ import java.util.List;
 @Component
 public interface DistrictDao {
 
-    public List<District> getAllDistrict();
+    public List<District> getDistrict(String temp);
 }
