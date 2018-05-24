@@ -76,4 +76,12 @@ public class SalaryController {
         }
         else return Ajax.error(AjaxEnum.NO_COMMENTS);
     }
+
+    @RequestMapping(method = RequestMethod.GET,value = "eva_systemReserve/{uid}")
+    public AjaxJson getEvaSystemReserve(@PathVariable String uid){
+
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
+        map.put("data", salaryService.getEvaSystemReserve(uid));
+        return Ajax.success(map);
+    }
 }

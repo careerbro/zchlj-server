@@ -14,6 +14,7 @@ public class User {
     @Getter @Setter private String email;
 //    school
     @Getter @Setter private String college;
+    @Getter @Setter private String collegeId;
 //    photo_path
     @Getter @Setter private String photoPath;
 

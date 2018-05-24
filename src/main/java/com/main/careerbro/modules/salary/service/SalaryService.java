@@ -35,4 +35,9 @@ public class SalaryService {
     public void updateSalary(Salary salary){
         salaryDao.updateSalary(salary);
     }
+
+    public List<Salary> getEvaSystemReserve(String uid){
+
+        return salaryDao.getEvaSystemReserve(uid);
+    }
 }

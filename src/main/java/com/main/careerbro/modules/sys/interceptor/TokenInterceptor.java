@@ -16,8 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class TokenInterceptor implements HandlerInterceptor {
     protected Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
     public RedisServiceImpl redisService;
+
 //    开始进入请求地址拦截
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
@@ -40,7 +42,6 @@ public class TokenInterceptor implements HandlerInterceptor {
             Ajax.error(AjaxEnum.NO_TOKEN);
             return false;
         }
-//        System.out.println("进入到了TokenInterceptor");
     }
 
 //    处理请求完成后视图渲染之前的处理操作

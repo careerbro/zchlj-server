@@ -8,6 +8,7 @@
        a.petname as petName,
        a.email as email,
        col.cname as college,
+       a.college_id as collegeId,
        a.photo_path as photoPath
 
     </sql>

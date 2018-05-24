@@ -39,4 +39,11 @@ public interface SalaryDao {
      * @param salary
      */
     public void updateSalary(Salary salary);
+
+    /**
+     * 获取用户收藏
+     * @param uid
+     * @return
+     */
+    public List<Salary> getEvaSystemReserve(String uid);
 }

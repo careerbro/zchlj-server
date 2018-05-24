@@ -38,12 +38,15 @@ public class UserController extends BaseController{
     }
     /**
      * 新建用户信息
+     * 新建成功后返回用户总数
      */
     @RequestMapping(method = RequestMethod.POST,value = "user")
     public AjaxJson newUser(HttpServletRequest httpServletRequest,@RequestBody User user){
         user.setOpenid(redisService.get(httpServletRequest.getParameter("token")).toString());
         userService.saveUser(user);
-        return Ajax.success();
+        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
+        map.put("sum",userService.getUserSum());
+        return Ajax.success(map);
     }
     /**
      * 更新用户信息

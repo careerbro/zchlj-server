@@ -136,4 +136,14 @@
         update_time = NOW()
         WHERE id = #{id}
     </update>
+
+    <select id="getEvaSystemReserve" resultType="com.main.careerbro.modules.salary.entity.Salary">
+        SELECT
+        <include refid="salaryColumns"/>
+        <include refid="salaryJoins"/>
+        FROM salary a
+        RIGHT JOIN eva_system eva on eva.salary_id = a.id
+        WHERE eva.user_id = #{uid}
+        AND eva.reserve = 1
+    </select>
 </mapper>

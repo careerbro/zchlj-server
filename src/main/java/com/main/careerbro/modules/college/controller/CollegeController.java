@@ -25,10 +25,6 @@ public class CollegeController {
     @RequestMapping(method = RequestMethod.GET,value = "college/{temp}")
     public AjaxJson getCollege(@PathVariable String temp) throws IOException, ParseException, InterruptedException {
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-//        Analyzer analyzer = new IKAnalyzer();
-//        System.out.println(analyzer.tokenStream("cName","北京大学"));
-        System.out.println(temp);
-        System.out.println(LuceneUtils.search(temp));
         map.put("data", LuceneUtils.search(temp));
         return Ajax.success(map);
     }

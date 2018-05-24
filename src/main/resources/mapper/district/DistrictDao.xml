@@ -19,6 +19,9 @@
         SELECT
         <include refid="districtColumns"/>
         FROM district a
+        WHERE a.city LIKE #{temp}
+        AND place_leavel = 3
+        AND rownum &lt; 6
     </select>
 
 </mapper>

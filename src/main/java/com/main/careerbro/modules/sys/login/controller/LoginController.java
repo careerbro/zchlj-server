@@ -42,8 +42,6 @@ public class LoginController extends BaseController{
     public AjaxJson login(@PathVariable @NonNull String jcode){
         String token = null;
         try {
-            System.out.println(jcode);
-            System.out.println(this.wxMaService.getWxMaConfig().getAppid());
             //获取session
             WxMaJscode2SessionResult session = this.wxMaService.getUserService().getSessionInfo(jcode);
             if (null!=session){
@@ -57,6 +55,9 @@ public class LoginController extends BaseController{
                     map.put("token",token);
                     //已注册
                     if (null != user){
+                        User thisUser = userService.getUser(openid);
+                        thisUser.setOpenid("");
+                        map.put("data",thisUser);
                         return Ajax.success(map);
                     }
                     //未注册

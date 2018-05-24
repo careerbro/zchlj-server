@@ -2,6 +2,10 @@ package com.main.careerbro.common.utils;
 
 import com.main.careerbro.modules.college.entity.College;
 import com.main.careerbro.modules.college.service.CollegeService;
+import com.main.careerbro.modules.corperation.entity.Corperation;
+import com.main.careerbro.modules.corperation.service.CorperationService;
+import com.main.careerbro.modules.industry.service.IndustryService;
+import com.main.careerbro.modules.job.service.JobService;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -39,21 +43,28 @@ public class LuceneUtils {
     // 索引存放路径
     // private static final String PATH =
     // "/Users/vinbrattany/Desktop/test/index";
-    private static final Directory directory = new RAMDirectory();
+    private static final Directory college = new RAMDirectory();
+    private static final Directory corperation = new RAMDirectory();
+    private static final Directory industry = new RAMDirectory();
+    private static final Directory job = new RAMDirectory();
+    private static final Directory district = new RAMDirectory();
 
-    public Directory getDirectory() {
-        return directory;
-    }
-//	public static  <T> T name(Class<T> className) {
-//		T s = SpringContextHolder.getBean(className);
-//		return s;
-//	}
+//    public Directory getDirectory() {
+//        return directory;
+//    }
+	public static  <T> T getBean(Class<T> className) {
+		T s = SpringConfigTool.getApplicationContext().getBean(className);
+		return s;
+	}
 
     // 建立索引
     public static void index() {
         long start = System.currentTimeMillis();
 
-        CollegeService collegeService = SpringConfigTool.getApplicationContext().getBean(CollegeService.class);
+        CollegeService collegeService = getBean(CollegeService.class);
+        CorperationService corperationService = getBean(CorperationService.class);
+        IndustryService industryService = getBean(IndustryService.class);
+        JobService jobService = getBean(JobService.class);
         List<College> dataCollege = collegeService.getAllCollege();
         /*1） 标准分词技术（StandardAnalyzer）：标准分词技术对英文来说是不错的，把单词分成一个一个的词根，但是对于中文来说，只是简单的把中文分成一个一个的汉字。
 
@@ -77,7 +88,7 @@ public class LuceneUtils {
 
         try {
             //创建索引写入对象
-            IndexWriter indexWriter = new IndexWriter(directory, indexWriterConfig);
+            IndexWriter indexWriter = new IndexWriter(college, indexWriterConfig);
             indexWriter.deleteAll();
             //创建Document对象，存储索引
 
@@ -117,7 +128,7 @@ public class LuceneUtils {
         QueryParser cnQueryParser = new QueryParser("cName",ikAnalyzer);
         QueryParser enQueryParser = new QueryParser("eName",enAnalyzer);
         // 2、创建IndexReader
-        IndexReader reader = DirectoryReader.open(directory);
+        IndexReader reader = DirectoryReader.open(college);
         // 3、根据IndexReader创建IndexSearcher
         IndexSearcher searcher = new IndexSearcher(reader);
         // 4丶创建搜索对象
@@ -160,7 +171,7 @@ public class LuceneUtils {
         List<College> collegeList = CollegeService.getAllCollege();
         IndexWriter writer = null;
         try {
-            writer = new IndexWriter(directory, new IndexWriterConfig(new IKAnalyzer()));
+            writer = new IndexWriter(college, new IndexWriterConfig(new IKAnalyzer()));
             Document doc = new Document();
             // 添加
             for (College college:
