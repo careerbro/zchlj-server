@@ -1,9 +1,9 @@
-package com.main.careerbro.modules.corperation.entity;
+package com.main.careerbro.modules.corporation.entity;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class Corperation {
+public class Corporation {
     @Getter @Setter private String id;
     @Getter @Setter private String city;
     @Getter @Setter private String eName;

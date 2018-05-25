@@ -9,4 +9,6 @@ import java.util.List;
 public interface DistrictDao {
 
     public List<District> getDistrict(String temp);
+
+    public List<District> getAllDistrict();
 }

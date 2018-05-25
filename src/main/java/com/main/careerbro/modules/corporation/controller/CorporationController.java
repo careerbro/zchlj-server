@@ -1,31 +1,30 @@
-package com.main.careerbro.modules.college.controller;
+package com.main.careerbro.modules.corporation.controller;
 
 import com.main.careerbro.common.jason.Ajax;
 import com.main.careerbro.common.jason.AjaxJson;
 import com.main.careerbro.common.utils.LuceneUtils;
-import com.main.careerbro.modules.college.service.CollegeService;
-import org.apache.lucene.analysis.Analyzer;
+import com.main.careerbro.modules.corporation.service.CorporationService;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
 
+@RequestMapping("corporation")
 @RestController
-@RequestMapping("college")
-public class CollegeController {
-
+public class CorporationController {
     @Autowired
-    CollegeService collegeService;
-    @RequestMapping(method = RequestMethod.GET,value = "college/{temp}")
-    public AjaxJson getCollege(@PathVariable String temp) throws IOException, ParseException, InterruptedException {
+    CorporationService corporationService;
+
+    @RequestMapping(method = RequestMethod.GET,value = "corporation/{temp}")
+    public AjaxJson getCorperation(@PathVariable String temp) throws IOException, ParseException {
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("data", LuceneUtils.search(temp,4));
+//        map.put("data",corperationService.getCorperation(temp));
+        map.put("data", LuceneUtils.search(temp,0));
         return Ajax.success(map);
     }
 }

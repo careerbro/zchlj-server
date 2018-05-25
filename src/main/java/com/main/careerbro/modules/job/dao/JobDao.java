@@ -9,4 +9,6 @@ import java.util.List;
 public interface JobDao {
 
     public List<Job> getJob(String temp);
+
+    public List<Job> getAllJob();
 }

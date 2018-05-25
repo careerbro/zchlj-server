@@ -11,14 +11,12 @@
     <sql id="jobJoins">
     </sql>
 
-    <select id="getJob" resultType="com.main.careerbro.modules.job.entity.Job">
+
+    <select id="getAllJob" resultType="com.main.careerbro.modules.job.entity.Job">
         SELECT
         <include refid="jobColumns"/>
         FROM job a
         <include refid="jobJoins"/>
-        WHERE a.cname LIKE #{temp}
-        AND rownum &lt; 6
     </select>
-
 
 </mapper>

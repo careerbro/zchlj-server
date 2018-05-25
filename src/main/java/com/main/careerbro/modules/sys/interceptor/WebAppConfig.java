@@ -1,5 +1,6 @@
 package com.main.careerbro.modules.sys.interceptor;
 
+import com.main.careerbro.common.redis.RedisServiceImpl;
 import javafx.application.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +16,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  *
  * 注册拦截器
  */
-@EnableWebMvc
 @Configuration
 public class WebAppConfig extends WebMvcConfigurationSupport {
 
@@ -23,6 +23,7 @@ public class WebAppConfig extends WebMvcConfigurationSupport {
     public TokenInterceptor tokenInterceptor() {
         return new TokenInterceptor();
     }
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){

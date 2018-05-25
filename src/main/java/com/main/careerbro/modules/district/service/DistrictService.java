@@ -14,6 +14,12 @@ public class DistrictService {
     DistrictDao districtDao;
 
     public List<District> getDistrict(String temp){
+
         return districtDao.getDistrict(temp);
+    }
+
+    public List<District> getAllDistrict(){
+
+        return districtDao.getAllDistrict();
     }
 }

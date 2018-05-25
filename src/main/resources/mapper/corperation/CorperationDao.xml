@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.main.careerbro.modules.corperation.dao.CorperationDao">
+<mapper namespace="com.main.careerbro.modules.corporation.dao.CorporationDao">
 
-    <sql id="corperationColumns">
+    <sql id="corporationColumns">
         a.id as id,
-        c.cname as city,
+        a.district_name as city,
         a.cname as cName,
         a.ename as eName,
         a.sname as sName
     </sql>
 
-    <sql id="corperationJoins">
-        LEFT JOIN city c ON c.id = a.city_id
+    <sql id="corporationJoins">
+--         LEFT JOIN city c ON c.id = a.city_id
     </sql>
-    
-    <select id="getCorperation" resultType="com.main.careerbro.modules.corperation.entity.Corperation">
-        SELECT 
-        <include refid="corperationColumns"/>
-        FROM corperation a
-        <include refid="corperationJoins"/>
-        WHERE a.cname LIKE #{temp}
-        AND rownum &lt; 6
+
+
+    <select id="getAllCorporation" resultType="com.main.careerbro.modules.corporation.entity.Corporation">
+        SELECT
+        <include refid="corporationColumns"/>
+        FROM corporation a
+        <include refid="corporationJoins"/>
     </select>
 
 

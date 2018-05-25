@@ -3,22 +3,26 @@ package com.main.careerbro.modules.sys.interceptor;
 import com.main.careerbro.common.jason.Ajax;
 import com.main.careerbro.common.jason.AjaxEnum;
 import com.main.careerbro.common.redis.RedisServiceImpl;
+import com.main.careerbro.common.utils.SpringConfigTool;
+import com.main.careerbro.modules.user.service.UserService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
+import javax.annotation.Resources;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class TokenInterceptor implements HandlerInterceptor {
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    public RedisServiceImpl redisService;
 
 //    开始进入请求地址拦截
     @Override
@@ -27,6 +31,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         //日志
         logger.debug(httpServletRequest.getRequestURI());
 
+        RedisServiceImpl redisService =SpringConfigTool.getApplicationContext().getBean(RedisServiceImpl.class);
         String token = httpServletRequest.getParameter("token");
         if (!StringUtils.isBlank(token)){
             boolean isLogin = redisService.isKeyExists(token);

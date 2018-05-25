@@ -2,9 +2,13 @@ package com.main.careerbro.common.utils;
 
 import com.main.careerbro.modules.college.entity.College;
 import com.main.careerbro.modules.college.service.CollegeService;
-import com.main.careerbro.modules.corperation.entity.Corperation;
-import com.main.careerbro.modules.corperation.service.CorperationService;
+import com.main.careerbro.modules.corporation.entity.Corporation;
+import com.main.careerbro.modules.corporation.service.CorporationService;
+import com.main.careerbro.modules.district.entity.District;
+import com.main.careerbro.modules.district.service.DistrictService;
+import com.main.careerbro.modules.industry.entity.Industry;
 import com.main.careerbro.modules.industry.service.IndustryService;
+import com.main.careerbro.modules.job.entity.Job;
 import com.main.careerbro.modules.job.service.JobService;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
@@ -17,7 +21,6 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
@@ -26,7 +29,7 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
-import org.wltea.analyzer.lucene.IKAnalyzer;
+//import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,7 +47,7 @@ public class LuceneUtils {
     // private static final String PATH =
     // "/Users/vinbrattany/Desktop/test/index";
     private static final Directory college = new RAMDirectory();
-    private static final Directory corperation = new RAMDirectory();
+    private static final Directory corporation = new RAMDirectory();
     private static final Directory industry = new RAMDirectory();
     private static final Directory job = new RAMDirectory();
     private static final Directory district = new RAMDirectory();
@@ -62,10 +65,15 @@ public class LuceneUtils {
         long start = System.currentTimeMillis();
 
         CollegeService collegeService = getBean(CollegeService.class);
-        CorperationService corperationService = getBean(CorperationService.class);
+        CorporationService corporationService = getBean(CorporationService.class);
         IndustryService industryService = getBean(IndustryService.class);
         JobService jobService = getBean(JobService.class);
+        DistrictService districtService = getBean(DistrictService.class);
         List<College> dataCollege = collegeService.getAllCollege();
+        List<Corporation> dataCorporation = corporationService.getAllCorporation();
+        List<Industry> dataIndustry = industryService.getAllIndustry();
+        List<Job> dataJob = jobService.getAllJob();
+        List<District> dataDistrict = districtService.getAllDistrict();
         /*1） 标准分词技术（StandardAnalyzer）：标准分词技术对英文来说是不错的，把单词分成一个一个的词根，但是对于中文来说，只是简单的把中文分成一个一个的汉字。
 
         2）IK中文分词器（IKAnalyzer）：结合词典分词和文法分析算法的中文分词技术，能够对词典进行扩展，是一个很好的中文分词器。
@@ -84,17 +92,21 @@ public class LuceneUtils {
         Analyzer analyzer = new StandardAnalyzer();//标准分词
         //创建索引写入配置
         IndexWriterConfig indexWriterConfig = new IndexWriterConfig(analyzer);
-
+        int i = 0;
+        int c = 0;
+        int d = 0;
+        int j = 0;
+        int t = 0;
 
         try {
             //创建索引写入对象
             IndexWriter indexWriter = new IndexWriter(college, indexWriterConfig);
             indexWriter.deleteAll();
+
             //创建Document对象，存储索引
 
 //            Document doc = new Document();
             // 4、为Document添加Field，是Document的一个子元素
-            int i = 0;
             for (College cb
                     : dataCollege) {
                 Document doc = new Document();
@@ -103,51 +115,193 @@ public class LuceneUtils {
                 indexWriter.addDocument(doc);
                 i++;
             }
-
             indexWriter.commit();
-            //关闭流
             indexWriter.close();
 
-            long end = System.currentTimeMillis();
-            System.out.println("创建了"+i+"个索引花费了" + (end - start) + " 毫秒");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
+        IndexWriterConfig indexWriterConfigCorporation = new IndexWriterConfig(analyzer);
+        try {
+            IndexWriter indexWriterCorporation = new IndexWriter(corporation, indexWriterConfigCorporation);
+            indexWriterCorporation.deleteAll();
+            for (Corporation co :
+                    dataCorporation) {
+                Document docCo = new Document();
+                addField2Document(docCo, co);
+                indexWriterCorporation.addDocument(docCo);
+                c++;
+            }
+            System.out.println("创建了" + c + "个corporation索引");
+
+            indexWriterCorporation.commit();
+            //关闭流
+            indexWriterCorporation.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        IndexWriterConfig indexWriterConfigIndustry = new IndexWriterConfig(analyzer);
+        try {
+            IndexWriter indexWriterIndustry = new IndexWriter(industry, indexWriterConfigIndustry);
+            indexWriterIndustry.deleteAll();
+            for (Industry in :
+                    dataIndustry) {
+                Document docIn = new Document();
+                addField2Document(docIn, in);
+                indexWriterIndustry.addDocument(docIn);
+                d++;
+            }
+            System.out.println("创建了" + d + "个industry索引");
+
+            indexWriterIndustry.commit();
+            //关闭流
+            indexWriterIndustry.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        IndexWriterConfig indexWriterConfigJob = new IndexWriterConfig(analyzer);
+        try {
+            IndexWriter indexWriterJob = new IndexWriter(job, indexWriterConfigJob);
+            indexWriterJob.deleteAll();
+            for (Job job :
+                    dataJob) {
+                Document docJob = new Document();
+                addField2Document(docJob, job);
+                indexWriterJob.addDocument(docJob);
+                j++;
+            }
+            System.out.println("创建了" + j + "个Job索引");
+
+            indexWriterJob.commit();
+            //关闭流
+            indexWriterJob.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        IndexWriterConfig indexWriterConfigDictrict = new IndexWriterConfig(analyzer);
+        try {
+            IndexWriter indexWriterDistrict = new IndexWriter(district, indexWriterConfigDictrict);
+            indexWriterDistrict.deleteAll();
+            for (District district :
+                    dataDistrict) {
+                Document docDistrict = new Document();
+                addField2Document(docDistrict, district);
+                indexWriterDistrict.addDocument(docDistrict);
+                t++;
+            }
+            System.out.println("创建了" + t + "个district索引");
+
+            indexWriterDistrict.commit();
+            //关闭流
+            indexWriterDistrict.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        long end = System.currentTimeMillis();
+        System.out.println("创建了"+i+"个college索引,花费了" + (end - start) + " 毫秒");
     }
 
-    // 搜索
-    public static List<HashMap<String, String>> search(String string) throws IOException, ParseException {
+//    // 搜索
+//    public static List<HashMap<String, String>> search(String string) throws IOException, ParseException {
+//
+//        List<HashMap<String, String>> data = new ArrayList<>();
+//
+//        Analyzer ikAnalyzer = new StandardAnalyzer();
+//        Analyzer enAnalyzer = new EnglishAnalyzer();
+//        // 1. 创建MultiFieldQueryParser搜索对象
+//        QueryParser cnQueryParser = new QueryParser("cName",ikAnalyzer);
+//        QueryParser enQueryParser = new QueryParser("eName",enAnalyzer);
+//        // 2、创建IndexReader
+//        IndexReader reader = DirectoryReader.open(college);
+//        // 3、根据IndexReader创建IndexSearcher
+//        IndexSearcher searcher = new IndexSearcher(reader);
+//        // 4丶创建搜索对象
+//        Query cnQuery =  cnQueryParser.parse(string);
+//        Query enQuery =  enQueryParser.parse(string);
+//        // 5、根据searcher搜索并且返回TopDocs
+//        TopDocs cnTdoc = searcher.search(cnQuery, 5);// 只会显示10条内容
+//        TopDocs enTdoc = searcher.search(enQuery, 5);
+//
+//        // 6、根据TopDocs获取ScoreDoc对象
+//        ScoreDoc sdocs[] = cnTdoc.scoreDocs.length>enTdoc.scoreDocs.length? cnTdoc.scoreDocs : enTdoc.scoreDocs;
+//
+//        for (ScoreDoc s : sdocs) {
+////            if (s.score > 0.2) {
+//                HashMap<String, String> hashMap = new HashMap<>();
+//                // 7、根据searcher行业ScoreDoc获取具体的Document对象
+//                Document document = searcher.doc(s.doc);
+//
+//                // 8、根据Document对象获取所需要的值
+//                String cName = document.get("cName");
+//                String id = document.get("id");
+//                String eName = document.get("eName");
+//                hashMap.put("id", id);
+//                hashMap.put("cName", cName);
+//                hashMap.put("eName", eName);
+////                hashMap.put("label", cName);
+//                data.add(hashMap);
+////            }
+//        }
+//        // 9、关闭reader
+//        reader.close();
+//        return data;
+//
+//    }
+
+    /**
+     * @param type {corporation : 0,
+     *             industry : 1,
+     *             job : 2,
+     *             district : 3,
+     *             college : 4}
+     * @param string
+     * @return
+     */
+    public static List<HashMap<String, String>> search(String string,Integer type) throws IOException, ParseException {
 
         List<HashMap<String, String>> data = new ArrayList<>();
 
-        Analyzer ikAnalyzer = new StandardAnalyzer();
-        Analyzer enAnalyzer = new EnglishAnalyzer();
+        Analyzer analyzer = new StandardAnalyzer();
         // 1. 创建MultiFieldQueryParser搜索对象
-        QueryParser cnQueryParser = new QueryParser("cName",ikAnalyzer);
-        QueryParser enQueryParser = new QueryParser("eName",enAnalyzer);
+        QueryParser queryParser = new QueryParser("cName",analyzer);
         // 2、创建IndexReader
-        IndexReader reader = DirectoryReader.open(college);
-        // 3、根据IndexReader创建IndexSearcher
-        IndexSearcher searcher = new IndexSearcher(reader);
-        // 4丶创建搜索对象
-        Query cnQuery =  cnQueryParser.parse(string);
-        Query enQuery =  enQueryParser.parse(string);
-        // 5、根据searcher搜索并且返回TopDocs
-        TopDocs cnTdoc = searcher.search(cnQuery, 10);// 只会显示10条内容
-        TopDocs enTdoc = searcher.search(enQuery, 10);
+        IndexReader reader = null;
+        if(type == 0) {
+            reader = DirectoryReader.open(corporation);
+        }
+        else if(type == 1){
+            reader = DirectoryReader.open(industry);
+        }
+        else if(type == 2){
+            reader = DirectoryReader.open(job);
+        }
+        else if(type == 3){
+            reader = DirectoryReader.open(district);
+        }
+        else {
+            reader = DirectoryReader.open(college);
+            Analyzer enAnalyzer = new EnglishAnalyzer();
+            QueryParser enQueryParser = new QueryParser("eName",enAnalyzer);
+            IndexSearcher searcher = new IndexSearcher(reader);
+            // 4丶创建搜索对象
+            Query cnQuery =  queryParser.parse(string);
+            Query enQuery =  enQueryParser.parse(string);
+            // 5、根据searcher搜索并且返回TopDocs
+            TopDocs cnTdoc = searcher.search(cnQuery, 5);// 只会显示10条内容
+            TopDocs enTdoc = searcher.search(enQuery, 5);
+            ScoreDoc sdocs[] = cnTdoc.scoreDocs.length>enTdoc.scoreDocs.length? cnTdoc.scoreDocs : enTdoc.scoreDocs;
 
-        // 6、根据TopDocs获取ScoreDoc对象
-        ScoreDoc sdocs[] = cnTdoc.scoreDocs.length>enTdoc.scoreDocs.length? cnTdoc.scoreDocs : enTdoc.scoreDocs;
-
-        for (ScoreDoc s : sdocs) {
-//            if (s.score > 0.2) {
+            for (ScoreDoc s : sdocs) {
                 HashMap<String, String> hashMap = new HashMap<>();
-                // 7、根据searcher行业ScoreDoc获取具体的Document对象
                 Document document = searcher.doc(s.doc);
 
-                // 8、根据Document对象获取所需要的值
                 String cName = document.get("cName");
                 String id = document.get("id");
                 String eName = document.get("eName");
@@ -156,6 +310,33 @@ public class LuceneUtils {
                 hashMap.put("eName", eName);
 //                hashMap.put("label", cName);
                 data.add(hashMap);
+            }
+            reader.close();
+            return data;
+        }
+        // 3、根据IndexReader创建IndexSearcher
+        IndexSearcher searcher = new IndexSearcher(reader);
+        // 4丶创建搜索对象
+        Query query =  queryParser.parse(string);
+        // 5、根据searcher搜索并且返回TopDocs
+        TopDocs tdoc = searcher.search(query, 5);// 只会显示10条内容
+
+        // 6、根据TopDocs获取ScoreDoc对象
+        ScoreDoc sdocs[] = tdoc.scoreDocs;
+
+        for (ScoreDoc s : sdocs) {
+//            if (s.score > 0.2) {
+            HashMap<String, String> hashMap = new HashMap<>();
+            // 7、根据searcher行业ScoreDoc获取具体的Document对象
+            Document document = searcher.doc(s.doc);
+
+            // 8、根据Document对象获取所需要的值
+            String cName = document.get("cName");
+            String id = document.get("id");
+            hashMap.put("id", id);
+            hashMap.put("cName", cName);
+//                hashMap.put("label", cName);
+            data.add(hashMap);
 //            }
         }
         // 9、关闭reader
@@ -164,34 +345,35 @@ public class LuceneUtils {
 
     }
 
+
     // 添加
 
-    public static void add() {
-        CollegeService CollegeService = SpringConfigTool.getApplicationContext().getBean(CollegeService.class);
-        List<College> collegeList = CollegeService.getAllCollege();
-        IndexWriter writer = null;
-        try {
-            writer = new IndexWriter(college, new IndexWriterConfig(new IKAnalyzer()));
-            Document doc = new Document();
-            // 添加
-            for (College college:
-            collegeList) {
-                addField2Document(doc, college);
-                writer.addDocument(doc);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (writer != null) {
-                try {
-                    writer.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+//    public static void add() {
+//        CollegeService CollegeService = SpringConfigTool.getApplicationContext().getBean(CollegeService.class);
+//        List<College> collegeList = CollegeService.getAllCollege();
+//        IndexWriter writer = null;
+//        try {
+//            writer = new IndexWriter(college, new IndexWriterConfig(new IKAnalyzer()));
+//            Document doc = new Document();
+//            // 添加
+//            for (College college:
+//            collegeList) {
+//                addField2Document(doc, college);
+//                writer.addDocument(doc);
+//            }
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (writer != null) {
+//                try {
+//                    writer.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
 
     // 删除
 
@@ -288,6 +470,33 @@ public class LuceneUtils {
         doc.add(new TextField("eName", college.getEName(), Field.Store.YES));
     }
 
+    private static void addField2Document(Document doc, Corporation corporation) {
+        //不分词,不索引,储存
+        doc.add(new StoredField("id", corporation.getId()));
+        //分词,索引,不储存
+        doc.add(new TextField("cName", corporation.getCName(), Field.Store.YES));
+    }
+
+    private static void addField2Document(Document doc, Industry industry) {
+        //不分词,不索引,储存
+        doc.add(new StoredField("id", industry.getId()));
+        //分词,索引,不储存
+        doc.add(new TextField("cName", industry.getCName(), Field.Store.YES));
+    }
+
+    private static void addField2Document(Document doc, Job job) {
+        //不分词,不索引,储存
+        doc.add(new StoredField("id", job.getId()));
+        //分词,索引,不储存
+        doc.add(new TextField("cName", job.getCName(), Field.Store.YES));
+    }
+
+    private static void addField2Document(Document doc, District district) {
+        //不分词,不索引,储存
+        doc.add(new StoredField("id", district.getId()));
+        //分词,索引,不储存
+        doc.add(new TextField("cName", district.getCity(), Field.Store.YES));
+    }
     // 删除文件
 //    private static void delFile(String path) {
 //        // boolean flag = false;

@@ -5,7 +5,7 @@
     <sql id="districtColumns">
         a.id as id,
         a.place_level as placeLevel,
-        a.country as country
+        a.country as country,
         a.state as state,
         a.city as city,
         a.region as region,
@@ -14,14 +14,12 @@
 
     <sql id="districtJoins">
     </sql>
-    
+
+
     <select id="getAllDistrict" resultType="com.main.careerbro.modules.district.entity.District">
         SELECT
         <include refid="districtColumns"/>
         FROM district a
-        WHERE a.city LIKE #{temp}
-        AND place_leavel = 3
-        AND rownum &lt; 6
     </select>
 
 </mapper>

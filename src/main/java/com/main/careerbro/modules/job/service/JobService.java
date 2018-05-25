@@ -11,7 +11,13 @@ import java.util.List;
 public class JobService {
     @Autowired
     JobDao jobDao;
+
     public List<Job> getJob(String temp){
         return jobDao.getJob(temp);
+    }
+
+    public List<Job> getAllJob(){
+
+        return jobDao.getAllJob();
     }
 }
