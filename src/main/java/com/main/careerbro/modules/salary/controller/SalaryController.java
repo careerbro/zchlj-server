@@ -5,8 +5,11 @@ import com.main.careerbro.common.jason.AjaxEnum;
 import com.main.careerbro.common.jason.AjaxJson;
 import com.main.careerbro.modules.comment.entity.Comment;
 import com.main.careerbro.modules.comment.service.CommentService;
+import com.main.careerbro.modules.salary.entity.EvaSystem;
 import com.main.careerbro.modules.salary.entity.Salary;
+import com.main.careerbro.modules.salary.service.EvaSystemService;
 import com.main.careerbro.modules.salary.service.SalaryService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +24,8 @@ public class SalaryController {
     SalaryService salaryService;
     @Autowired
     CommentService commentService;
+    @Autowired
+    EvaSystemService evaSystemService;
 
     @RequestMapping(method = RequestMethod.GET,value = "user/{id}")
     public AjaxJson getByUserId(@PathVariable String id){
@@ -77,11 +82,24 @@ public class SalaryController {
         else return Ajax.error(AjaxEnum.NO_COMMENTS);
     }
 
-    @RequestMapping(method = RequestMethod.GET,value = "eva_systemReserve/{uid}")
+    @RequestMapping(method = RequestMethod.GET,value = "eva_system/{uid}")
     public AjaxJson getEvaSystemReserve(@PathVariable String uid){
 
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         map.put("data", salaryService.getEvaSystemReserve(uid));
         return Ajax.success(map);
     }
+
+    @RequestMapping(method = RequestMethod.POST,value = "eva_system")
+    public AjaxJson saveEvaSystem(@RequestBody EvaSystem evaSystem){
+
+        if (StringUtils.isBlank(evaSystem.getId())){
+            evaSystemService.saveEvaSystem(evaSystem);
+        }
+        else {
+            evaSystemService.updateEvaSystem(evaSystem);
+        }
+        return Ajax.success();
+    }
+
 }

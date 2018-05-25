@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.main.careerbro.modules.salary.dao.EvaSystemDao">
+
+    <sql id="evaSystemColumns">
+        a.id as id,
+        a.user_id as userId,
+        a.salary_id as salaryId,
+        a.agree as agree,
+        a.opp as opp,
+        a.gra as gra,
+        a.reserve as reserve,
+        a.reserve_time as reserveTime
+    </sql>
+
+    <sql id="evaSystemJoins">
+    </sql>
+
+
+
+    <insert id="saveEvaSystem">
+        INTO eva_system (
+        id,
+        user_id,
+        salary_id,
+        agree,
+        opp,
+        gra,
+        reserve,
+        <if test="reserve==1">
+        reserve_time,
+        </if>
+        create_time,
+        update_time
+        )VALUES (
+        #{id},
+        #{userId},
+        #{salaryId},
+        #{agree},
+        #{opp},
+        #{gra},
+        #{reserve},
+        <if test="reserve==1">
+        NOW(),
+        </if>
+        NOW(),
+        NOW()
+        )
+    </insert>
+
+    <update id="updateEvaSystem">
+        UPDATE eva_system
+        SET agree = #{agree},
+        SET opp = #{opp},
+        SET gra = #{gra},
+        SET reserve = #{reserve},
+        <if test="null==reserveTime and reserve==1">
+            SET reserve_time = NOW(),
+        </if>
+        SET update_time = NOW()
+    </update>
+
+
+</mapper>
