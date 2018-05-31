@@ -23,7 +23,7 @@ public class AttentionService {
     @Transactional
     public void saveAttention(Attention attention){
 
-        attention.setId(UUID.randomUUID().toString());
+        attention.setId(UUID.randomUUID().toString().replaceAll("-",""));
         attentionDao.saveAttention(attention);
     }
 

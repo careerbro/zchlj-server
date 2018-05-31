@@ -4,12 +4,12 @@
 
     <sql id="salaryColumns">
         a.id as id,
-        c.cname as city,
+        d.city as city,
         j.cname as job,
         u.petname as user,
         col.cname as college,
-        i.canme as industry,
-        cor.cname as corperation,
+        i.cname as industry,
+        cor.cname as corporation,
         a.year_salary_max as yearSalaryMax,
         a.year_salary_min as yearSalaryMin,
         a.month_salary as monthSalary,
@@ -30,28 +30,28 @@
     </sql>
 
     <sql id="salaryJoins">
-        LEFT JOIN dstrict c ON c.id = a.city_id
+        LEFT JOIN district d ON d.id = a.city_id
         LEFT JOIN  job j ON j.id = a.job_id
-        LEFT JOIN user u ON u.id = user_id
-        LEFT JOIN college col ON col.id = college_id
-        LEFT JOIN industry i ON i.id = industry_id
-        LEFT JOIN corperation cor ON cor.id = cor_id
+        LEFT JOIN user u ON u.id = a.user_id
+        LEFT JOIN college col ON col.id = a.college_id
+        LEFT JOIN industry i ON i.id = a.industry_id
+        LEFT JOIN corporation cor ON cor.id = a.cor_id
     </sql>
 
     <select id="getSalaryByUser" resultType="com.main.careerbro.modules.salary.entity.Salary">
         SELECT 
         <include refid="salaryColumns"/>
-        <include refid="salaryJoins"/>
         FROM salary a
-        WHERE a.user_id = #{userId}
+        <include refid="salaryJoins"/>
+        WHERE a.user_id = #{user}
         ORDER BY a.create_time AND a.update_time
     </select>
 
     <select id="getSalaryById" resultType="com.main.careerbro.modules.salary.entity.Salary">
         SELECT
         <include refid="salaryColumns"/>
-        <include refid="salaryJoins"/>
         FROM salary a
+        <include refid="salaryJoins"/>
         WHERE a.id = #{id}
         ORDER BY a.create_time AND a.update_time
     </select>
@@ -59,8 +59,8 @@
     <select id="getAllSalary" resultType="com.main.careerbro.modules.salary.entity.Salary">
         SELECT
         <include refid="salaryColumns"/>
-        <include refid="salaryJoins"/>
         FROM salary a
+        <include refid="salaryJoins"/>
         ORDER BY a.create_time AND a.update_time
     </select>
 
@@ -91,19 +91,19 @@
         update_time
         )VALUES (
         #{id},
-        #{cityId},
-        #{jobId},
-        #{userId},
-        #{collegeId},
-        #{industryId},
-        #{corId},
+        #{city},
+        #{job},
+        #{user},
+        #{college},
+        #{industry},
+        #{corporation},
         #{yearSalaryMax},
         #{yearSalaryMin},
         #{monthSalary},
         #{monthNum},
         #{welfare},
         #{collegeLevel},
-        #{eduBackground},
+        #{eduBackGround},
         #{offerTime},
         #{experienceMonthNum},
         0,
@@ -118,19 +118,19 @@
 
     <update id="updateSalary">
         UPDATE salary
-        SET city_id = #{cityId},
-        job_id = #{jobId},
-        user_id = #{userId},
-        college_id = #{collegeId},
-        industry_id = #{industryId},
-        cor_id = #{corId},
+        SET city_id = #{city},
+        job_id = #{job},
+        user_id = #{user},
+        college_id = #{college},
+        industry_id = #{industry},
+        cor_id = #{corporation},
         year_salary_max = #{yearSalaryMax},
         year_salary_min = #{yearSalaryMin},
         month_salary = #{monthSalary},
         month_num = #{monthNum},
         welfare = #{welfare},
         college_level = #{collegeLevel},
-        edu_background = #{eduBackground},
+        edu_background = #{eduBackGround},
         offer_time = #{offerTime},
         experience_month_num = #{experienceMonthNum},
         update_time = NOW()
@@ -140,8 +140,8 @@
     <select id="getEvaSystemReserve" resultType="com.main.careerbro.modules.salary.entity.Salary">
         SELECT
         <include refid="salaryColumns"/>
-        <include refid="salaryJoins"/>
         FROM salary a
+        <include refid="salaryJoins"/>
         RIGHT JOIN eva_system eva on eva.salary_id = a.id
         WHERE eva.user_id = #{uid}
         AND eva.reserve = 1

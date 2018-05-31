@@ -27,11 +27,11 @@ public class UserController extends BaseController{
     private RedisServiceImpl redisService;
     /**
      * 获取用户信息
-     * @param: openid
      */
-    @RequestMapping(method = RequestMethod.GET,value = "user/{id}")
-    public AjaxJson user(@PathVariable String id){
-        User user = userService.getUser(id);
+    @RequestMapping(method = RequestMethod.GET,value = "user")
+    public AjaxJson user(HttpServletRequest httpServletRequest){
+        User user = userService.getUser(redisService.get(httpServletRequest.getParameter("token")).toString());
+        user.setOpenid("");
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
         map.put("user",user);
         return Ajax.success(map);

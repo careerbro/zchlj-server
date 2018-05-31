@@ -39,7 +39,7 @@ public class AttentionController {
         return Ajax.success();
     }
 
-    @RequestMapping(method = RequestMethod.GET,value = "industry")
+    @RequestMapping(method = RequestMethod.POST,value = "industry")
     public AjaxJson saveAttentionIndustry(@RequestBody Attention attention){
 
         attention.setCategory(2);
@@ -48,7 +48,7 @@ public class AttentionController {
     }
 
     @RequestMapping(method = RequestMethod.PUT,value = "cancelAttend")
-    public AjaxJson cancelAttend(String id){
+    public AjaxJson cancelAttend(@RequestParam("id") String id){
 
         attentionService.cancelAttend(id);
         return Ajax.success();

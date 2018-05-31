@@ -9,7 +9,7 @@ public class Salary {
     @Getter @Setter private String user;
     @Getter @Setter private String college;
     @Getter @Setter private String industry;
-    @Getter @Setter private String corperation;
+    @Getter @Setter private String corporation;
     @Getter @Setter private String city;
     @Getter @Setter private String yearSalaryMax;
     @Getter @Setter private String yearSalaryMin;

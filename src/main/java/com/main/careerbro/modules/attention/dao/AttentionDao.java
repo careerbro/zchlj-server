@@ -1,6 +1,7 @@
 package com.main.careerbro.modules.attention.dao;
 
 import com.main.careerbro.modules.attention.entity.Attention;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface AttentionDao {
      * @param category 公司:1岗位:2
      * @return
      */
-    public List<Attention> getAllAttention(String uid,Integer category);
+    public List<Attention> getAllAttention(@Param("uid") String uid, @Param("category") Integer category);
 
     /**
      * 关注

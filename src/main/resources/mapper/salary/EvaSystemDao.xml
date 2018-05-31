@@ -19,7 +19,7 @@
 
 
     <insert id="saveEvaSystem">
-        INTO eva_system (
+        INSERT INTO eva_system (
         id,
         user_id,
         salary_id,

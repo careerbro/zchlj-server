@@ -4,7 +4,7 @@
 
     <sql id="commentColumns">
         a.id as id,
-        u.cname as name,
+        u.petname as name,
         a.salary_id as salary,
         a.contend as contend,
         a.time as time,
@@ -29,7 +29,8 @@
         <include refid="commentColumns" />
         FROM comments a
         <include refid="commentJoins" />
-        WHERE a.user_id = u.id
+        WHERE a.user_id = #{uid}
+        ORDER BY a.time DESC
     </select>
 
     <insert id="saveComment">
@@ -50,7 +51,7 @@
         )
     </insert>
     
-    <update id="updateComment">
+    <update id="updateAgree">
         UPDATE comments
         SET agree_num = agree_num + 1
         WHERE id = #{id}
