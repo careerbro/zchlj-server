@@ -52,9 +52,14 @@ public class UserController extends BaseController{
      * 更新用户信息
      */
     @RequestMapping(method = RequestMethod.PUT,value = "user")
-    public AjaxJson updateUser(@RequestBody User user){
+    public AjaxJson updateUser(HttpServletRequest httpServletRequest,@RequestBody User user){
         userService.updateUser(user);
-        return Ajax.success();
+        //返回用户信息
+        User newUser = userService.getUser(redisService.get(httpServletRequest.getParameter("token")).toString());
+        newUser.setOpenid("");
+        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
+        map.put("user",newUser);
+        return Ajax.success(map);
     }
     /**
      * 删除用户信息
