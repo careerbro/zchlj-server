@@ -15,21 +15,14 @@ public class AttentionController {
     @Autowired
     AttentionService attentionService;
 
-    @RequestMapping(method = RequestMethod.GET,value = "corperation/{uid}")
-    public AjaxJson getAttentionCorperation(@PathVariable String uid){
+    @RequestMapping(method = RequestMethod.GET,value = "attention")
+    public AjaxJson getAttentionCorperation(@RequestParam("uid") String uid,@RequestParam("category") Integer category){
 
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("data",attentionService.getAllAttention(uid,1));
+        map.put("data",attentionService.getAllAttention(uid,category));
         return Ajax.success(map);
     }
 
-    @RequestMapping(method = RequestMethod.GET,value = "industry/{uid}")
-    public AjaxJson getAttentionIndustry(@PathVariable String uid){
-
-        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("data",attentionService.getAllAttention(uid,2));
-        return Ajax.success(map);
-    }
 
     @RequestMapping(method = RequestMethod.POST,value = "corperation")
     public AjaxJson saveAttentionCorperation(@RequestBody Attention attention){

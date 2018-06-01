@@ -14,7 +14,7 @@ public interface AttentionDao {
      * @param category 公司:1岗位:2
      * @return
      */
-    public List<Attention> getAllAttention(@Param("uid") String uid, @Param("category") Integer category);
+    public List<Attention> getAllAttention(@Param("uid") String uid,@Param("category") Integer category);
 
     /**
      * 关注
