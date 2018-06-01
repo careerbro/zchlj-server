@@ -6,22 +6,46 @@
         a.id as id,
         a.user_id as userId,
         u.petname as user,
-        a.attention_id as attentionId,
-        c.cname as attend
+        a.attention_id as attentionId
+
     </sql>
 
     <sql id="attentionJoins">
         JOIN user u ON u.id = a.user_id
-        JOIN corporation c ON c.id = a.attention_id
+--         JOIN corporation c ON c.id = a.attention_id
 --         JOIN job j ON j.id = a.attention_id
     </sql>
 
-    <!--关注的公司:1,关注的岗位:2-->
+    <!--关注的公司:1,关注的岗位:2,城市:3,学校:4-->
     <select id="getAllAttention" resultType="com.main.careerbro.modules.attention.entity.Attention">
         SELECT
         <include refid="attentionColumns"/>
+        <if test="category==1">
+            , c.cname as attend
+        </if>
+        <if test="category==2">
+            ,c.cname as attend
+        </if>
+        <if test="category==3">
+            ,c.city as attend
+        </if>
+        <if test="category==4">
+            ,c.cname as attend
+        </if>
         FROM user_attention a
         <include refid="attentionJoins"/>
+        <if test="category==1">
+            JOIN corporation c ON c.id = a.attention_id
+        </if>
+        <if test="category==2">
+            JOIN industry c ON c.id = a.attention_id
+        </if>
+        <if test="category==3">
+            JOIN district c ON c.id = a.attention_id
+        </if>
+        <if test="category==4">
+            JOIN college c ON c.id = a.attention_id
+        </if>
         WHERE a.user_id = #{uid}
         AND  a.category = #{category}
         AND a.validity = 1

@@ -24,18 +24,9 @@ public class AttentionController {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST,value = "corperation")
+    @RequestMapping(method = RequestMethod.POST,value = "attention")
     public AjaxJson saveAttentionCorperation(@RequestBody Attention attention){
 
-        attention.setCategory(1);
-        attentionService.saveAttention(attention);
-        return Ajax.success();
-    }
-
-    @RequestMapping(method = RequestMethod.POST,value = "industry")
-    public AjaxJson saveAttentionIndustry(@RequestBody Attention attention){
-
-        attention.setCategory(2);
         attentionService.saveAttention(attention);
         return Ajax.success();
     }
