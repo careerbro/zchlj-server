@@ -6,6 +6,7 @@ import lombok.Setter;
 public class Comment {
     @Getter @Setter private String id;
     @Getter @Setter private String userId;
+    @Getter @Setter private String name;
     @Getter @Setter private String salaryId;
     @Getter @Setter private String contend;
     @Getter @Setter private String time;

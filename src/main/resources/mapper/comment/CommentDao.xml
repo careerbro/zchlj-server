@@ -4,8 +4,9 @@
 
     <sql id="commentColumns">
         a.id as id,
+        a.user_id as userId,
         u.petname as name,
-        a.salary_id as salary,
+        a.salary_id as salaryId,
         a.contend as contend,
         a.time as time,
         a.agree_num as agreeNum

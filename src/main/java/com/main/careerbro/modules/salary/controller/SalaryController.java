@@ -13,8 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("salary")
@@ -68,12 +67,16 @@ public class SalaryController {
     @RequestMapping(method = RequestMethod.GET,value = "comment/{uid}")
     public AjaxJson getSalaryByComment(@PathVariable String uid){
 
-        List<Salary> salaries = null;
+        List<Salary> salaries = new ArrayList<>();
+        Set<String> set = new HashSet<>();
         List<Comment> comments = commentService.getByUserId(uid);
         if (comments.size()>0) {
             for (Comment c :
                     comments) {
-                salaries.add(salaryService.getSalaryById(c.getSalaryId()));
+                if (!set.contains(c.getSalaryId())) {
+                    set.add(c.getSalaryId());
+                    salaries.add(salaryService.getSalaryById(c.getSalaryId()));
+                }
             }
             LinkedHashMap<String, Object> map = new LinkedHashMap<>();
             map.put("data", salaries);
