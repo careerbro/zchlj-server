@@ -6,7 +6,9 @@
         a.id as id,
         a.user_id as userId,
         u.petname as user,
-        a.attention_id as attentionId
+        a.attention_id as attendId,
+        a.category as category,
+        a.ftime as time
 
     </sql>
 
