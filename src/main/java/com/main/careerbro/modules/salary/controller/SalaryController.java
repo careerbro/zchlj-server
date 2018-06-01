@@ -70,7 +70,6 @@ public class SalaryController {
 
         List<Salary> salaries = null;
         List<Comment> comments = commentService.getByUserId(uid);
-        System.out.println(comments.size());
         if (comments.size()>0) {
             for (Comment c :
                     comments) {

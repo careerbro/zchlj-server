@@ -43,9 +43,8 @@
         <include refid="salaryColumns"/>
         FROM salary a
         <include refid="salaryJoins"/>
-        LEFT JOIN comments cs ON a.id = cs.salary_id
         WHERE a.user_id = #{user}
-        ORDER BY cs.time DESC ,a.create_time DESC ,a.update_time DESC
+        ORDER BY a.create_time DESC ,a.update_time DESC
     </select>
 
     <select id="getSalaryById" resultType="com.main.careerbro.modules.salary.entity.Salary">
@@ -53,9 +52,8 @@
         <include refid="salaryColumns"/>
         FROM salary a
         <include refid="salaryJoins"/>
-        LEFT JOIN comments cs ON a.id = cs.salary_id
         WHERE a.id = #{id}
-        ORDER BY cs.time DESC ,a.create_time DESC ,a.update_time DESC
+        ORDER BY a.create_time DESC ,a.update_time DESC
     </select>
 
     <select id="getAllSalary" resultType="com.main.careerbro.modules.salary.entity.Salary">
@@ -63,8 +61,7 @@
         <include refid="salaryColumns"/>
         FROM salary a
         <include refid="salaryJoins"/>
-        LEFT JOIN comments cs ON a.id = cs.salary_id
-        ORDER BY cs.time DESC ,a.create_time DESC ,a.update_time DESC
+        ORDER BY a.create_time DESC ,a.update_time DESC
     </select>
 
     <insert id="saveSalary">
