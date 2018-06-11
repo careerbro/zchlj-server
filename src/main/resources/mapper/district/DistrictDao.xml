@@ -20,6 +20,7 @@
         SELECT
         <include refid="districtColumns"/>
         FROM district a
+        WHERE place_level = 3
     </select>
 
 </mapper>
