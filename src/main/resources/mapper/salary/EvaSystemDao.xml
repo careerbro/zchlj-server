@@ -23,10 +23,18 @@
         id,
         user_id,
         salary_id,
+        <if test="null != agree">
         agree,
+        </if>
+        <if test="null != opp">
         opp,
+        </if>
+        <if test="null != gra">
         gra,
+        </if>
+        <if test="null != reserve">
         reserve,
+        </if>
         <if test="reserve==1">
         reserve_time,
         </if>
@@ -36,10 +44,18 @@
         #{id},
         #{userId},
         #{salaryId},
+        <if test="null != agree">
         #{agree},
+        </if>
+        <if test="null != opp">
         #{opp},
+        </if>
+        <if test="null != gra">
         #{gra},
+        </if>
+        <if test="null != reserve">
         #{reserve},
+        </if>
         <if test="reserve==1">
         NOW(),
         </if>
@@ -50,10 +66,18 @@
 
     <update id="updateEvaSystem">
         UPDATE eva_system
+        <if test="null != agree">
         SET agree = #{agree},
+        </if>
+        <if test="null != opp">
         SET opp = #{opp},
+        </if>
+        <if test="null != gra">
         SET gra = #{gra},
+        </if>
+        <if test="null != reserve">
         SET reserve = #{reserve},
+        </if>
         <if test="null==reserveTime and reserve==1">
             SET reserve_time = NOW(),
         </if>

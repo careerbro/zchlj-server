@@ -5,9 +5,12 @@
     <sql id="salaryColumns">
         a.id as id,
         d.city as city,
+        d.id as cityId,
         j.cname as job,
+        j.id as jobId,
         u.petname as user,
         col.cname as college,
+        col.id as collegeId,
         i.cname as industry,
         cor.cname as corporation,
         a.year_salary_max as yearSalaryMax,

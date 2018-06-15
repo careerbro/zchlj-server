@@ -6,11 +6,14 @@ import lombok.Setter;
 public class Salary {
     @Getter @Setter private String id;
     @Getter @Setter private String job;
+    @Getter @Setter private String jobId;
     @Getter @Setter private String user;
     @Getter @Setter private String college;
+    @Getter @Setter private String collegeId;
     @Getter @Setter private String industry;
     @Getter @Setter private String corporation;
     @Getter @Setter private String city;
+    @Getter @Setter private String cityId;
     @Getter @Setter private String yearSalaryMax;
     @Getter @Setter private String yearSalaryMin;
     @Getter @Setter private String monthSalary;
