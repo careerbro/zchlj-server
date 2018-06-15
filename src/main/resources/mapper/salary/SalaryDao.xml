@@ -78,6 +78,9 @@
         <if test="null != cityId">
             AND a.city_id = #{cityId}
         </if>
+        <if test="null != jobId">
+            AND a.job_id = #{jobId}
+        </if>
         ORDER BY a.create_time DESC ,a.update_time DESC
     </select>
 
