@@ -3,16 +3,20 @@ package com.main.careerbro.modules.salary.controller;
 import com.main.careerbro.common.jason.Ajax;
 import com.main.careerbro.common.jason.AjaxEnum;
 import com.main.careerbro.common.jason.AjaxJson;
+import com.main.careerbro.common.redis.RedisServiceImpl;
 import com.main.careerbro.modules.comment.entity.Comment;
 import com.main.careerbro.modules.comment.service.CommentService;
 import com.main.careerbro.modules.salary.entity.EvaSystem;
 import com.main.careerbro.modules.salary.entity.Salary;
 import com.main.careerbro.modules.salary.service.EvaSystemService;
 import com.main.careerbro.modules.salary.service.SalaryService;
+import com.main.careerbro.modules.user.entity.User;
+import com.main.careerbro.modules.user.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @RestController
@@ -25,6 +29,11 @@ public class SalaryController {
     CommentService commentService;
     @Autowired
     EvaSystemService evaSystemService;
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RedisServiceImpl redisService;
 
     @RequestMapping(method = RequestMethod.GET,value = "user/{id}")
     public AjaxJson getByUserId(@PathVariable String id){
@@ -35,18 +44,21 @@ public class SalaryController {
     }
 
     @RequestMapping(method = RequestMethod.GET,value = "salary")
-    public AjaxJson getAllSalary(){
+    public AjaxJson getAllSalary(@RequestParam Map<String,String > params){
 
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("data",salaryService.getAllSalary());
+        map.put("data",salaryService.getAllSalary(params));
         return Ajax.success(map);
     }
 
     @RequestMapping(method = RequestMethod.GET,value = "salary/{id}")
-    public AjaxJson getSalaryById(@PathVariable String id){
+    public AjaxJson getSalaryById(@PathVariable String id,HttpServletRequest httpServletRequest){
 
+        User user = userService.getUser(redisService.get(httpServletRequest.getParameter("token")).toString());
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("data",salaryService.getSalaryById(id));
+        Salary salary = salaryService.getSalaryById(id);
+        map.put("data",salary);
+        map.put("extendData",evaSystemService.getEvaSystem(user.getId(),salary.getId()));
         return Ajax.success(map);
     }
 
@@ -98,9 +110,11 @@ public class SalaryController {
 
         if (StringUtils.isBlank(evaSystem.getId())){
             evaSystemService.saveEvaSystem(evaSystem);
+            salaryService.updateSalaryExtend(evaSystem);
         }
         else {
             evaSystemService.updateEvaSystem(evaSystem);
+            salaryService.updateSalaryExtend(evaSystem);
         }
         return Ajax.success();
     }

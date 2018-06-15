@@ -16,6 +16,12 @@
     <sql id="evaSystemJoins">
     </sql>
 
+    <select id="getEvaSystem" resultType="com.main.careerbro.modules.salary.entity.EvaSystem">
+        SELECT <include refid="evaSystemColumns"/>
+        FROM eva_system a
+        WHERE a.salary_id = #{salaryId}
+        AND a.user_id = #{userId}
+    </select>
 
 
     <insert id="saveEvaSystem">

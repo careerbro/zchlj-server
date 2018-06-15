@@ -1,9 +1,11 @@
 package com.main.careerbro.modules.salary.dao;
 
+import com.main.careerbro.modules.salary.entity.EvaSystem;
 import com.main.careerbro.modules.salary.entity.Salary;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public interface SalaryDao {
@@ -19,7 +21,7 @@ public interface SalaryDao {
      * 获取所有薪资
      * @return
      */
-    public List<Salary> getAllSalary();
+    public List<Salary> getAllSalary(Map<String,String> map);
 
     /**
      * 根据id返回薪资
@@ -46,4 +48,10 @@ public interface SalaryDao {
      * @return
      */
     public List<Salary> getEvaSystemReserve(String uid);
+
+    /**
+     * 更新薪资的点赞等四个属性
+     * @param evaSystem
+     */
+    public void updateSalaryExtend(EvaSystem evaSystem);
 }

@@ -26,4 +26,8 @@ public class EvaSystemService {
 
         evaSystemDao.updateEvaSystem(evaSystem);
     }
+
+    public EvaSystem getEvaSystem(String userId,String salaryId){
+        return evaSystemDao.getEvaSystem(userId,salaryId);
+    }
 }
