@@ -11,4 +11,5 @@ public class Comment {
     @Getter @Setter private String contend;
     @Getter @Setter private String time;
     @Getter @Setter private Integer agreeNum;
+    @Getter @Setter private String photoPath;
 }
