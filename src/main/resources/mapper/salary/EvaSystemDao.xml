@@ -72,22 +72,23 @@
 
     <update id="updateEvaSystem">
         UPDATE eva_system
+        SET
         <if test="null != agree">
-        SET agree = #{agree},
+         agree = #{agree},
         </if>
         <if test="null != opp">
-        SET opp = #{opp},
+         opp = #{opp},
         </if>
         <if test="null != gra">
-        SET gra = #{gra},
+         gra = #{gra},
         </if>
         <if test="null != reserve">
-        SET reserve = #{reserve},
+         reserve = #{reserve},
         </if>
         <if test="null==reserveTime and reserve==1">
-            SET reserve_time = NOW(),
+             reserve_time = NOW(),
         </if>
-        SET update_time = NOW()
+         update_time = NOW()
     </update>
 
 
