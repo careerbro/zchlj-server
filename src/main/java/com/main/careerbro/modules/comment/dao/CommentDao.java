@@ -32,4 +32,11 @@ public interface CommentDao {
      * @param id
      */
     public void updateAgree(String id);
+
+    /**
+     * 获取该薪资下的评论数量
+     * @param salaryId
+     * @return
+     */
+    public Integer getNumBySalaryId(String salaryId);
 }

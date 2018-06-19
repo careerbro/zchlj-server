@@ -58,4 +58,10 @@
         SET agree_num = agree_num + 1
         WHERE id = #{id}
     </update>
+    
+    <select id="getNumBySalaryId" resultType="Integer">
+        SELECT count(a.id)
+        FROM comments a
+        WHERE a.salary_id = #{salaryId}
+    </select>
 </mapper>

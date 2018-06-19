@@ -37,4 +37,9 @@ public class CommentService {
 
         commentDao.updateAgree(id);
     }
+
+    public Integer getNumBySalaryId(String salaryId){
+
+        return commentDao.getNumBySalaryId(salaryId);
+    }
 }

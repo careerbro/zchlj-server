@@ -59,6 +59,7 @@ public class SalaryController {
         Salary salary = salaryService.getSalaryById(id);
         map.put("data",salary);
         map.put("extendData",evaSystemService.getEvaSystem(user.getId(),salary.getId()));
+        map.put("commentsNum",commentService.getNumBySalaryId(salary.getId()));
         return Ajax.success(map);
     }
 
