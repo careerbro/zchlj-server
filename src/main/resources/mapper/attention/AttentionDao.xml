@@ -53,6 +53,13 @@
         AND a.validity = 1
         ORDER BY a.ftime
     </select>
+    
+    <select id="getIsAttend" resultType="String">
+        SELECT id
+        FROM user_attention
+        WHERE user_id = #{userId}
+        AND  attention_id = #{attendId}
+    </select>
 
     <insert id="saveAttention">
         INSERT INTO user_attention(

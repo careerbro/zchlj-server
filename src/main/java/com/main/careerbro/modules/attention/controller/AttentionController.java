@@ -4,10 +4,12 @@ import com.main.careerbro.common.jason.Ajax;
 import com.main.careerbro.common.jason.AjaxJson;
 import com.main.careerbro.modules.attention.entity.Attention;
 import com.main.careerbro.modules.attention.service.AttentionService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 @RequestMapping("attention")
 @RestController
@@ -36,5 +38,13 @@ public class AttentionController {
 
         attentionService.cancelAttend(id);
         return Ajax.success();
+    }
+
+    @RequestMapping(method = RequestMethod.GET,value = "isAttend")
+    public AjaxJson getIsAttend(@RequestParam Map<String,String > params){
+
+        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
+        map.put("data",attentionService.getIsAttend(params));
+        return Ajax.success(map);
     }
 }

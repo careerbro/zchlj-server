@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public interface AttentionDao {
@@ -27,4 +28,11 @@ public interface AttentionDao {
      * @param id
      */
     public void cancelAttend(String id);
+
+    /**
+     * 判断是否已关注 userId attendId
+     * @param map
+     * @return
+     */
+    public String getIsAttend(Map map);
 }
