@@ -57,7 +57,6 @@
         FROM salary a
         <include refid="salaryJoins"/>
         WHERE a.id = #{id}
-        ORDER BY a.create_time DESC ,a.update_time DESC
     </select>
 
     <select id="getAllSalary" resultType="com.main.careerbro.modules.salary.entity.Salary">
@@ -81,7 +80,7 @@
         <if test="null != jobId">
             AND a.job_id = #{jobId}
         </if>
-        ORDER BY a.create_time DESC ,a.update_time DESC
+        ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
     </select>
 
     <insert id="saveSalary">
