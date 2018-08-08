@@ -84,6 +84,12 @@
         <if test="null != type">
             AND a.edu_background = #{type}
         </if>
+        <if test="null != experienceMonthNumMin">
+            AND experience_month_num >= #{experienceMonthNumMin}
+        </if>
+        <if test="null != experienceMonthNumMax">
+            AND experience_month_num &lt;= #{experienceMonthNumMax}
+        </if>
         ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
     </select>
 
@@ -209,4 +215,8 @@
         WHERE id = #{id}
     </update>
 
+    <!--<select id="getMostCicy" resultType="java.util.HashMap">-->
+        <!--SELECT * FROM salary-->
+        <!--WHERE  date(update_time) >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)-->
+    <!--</select>-->
 </mapper>
