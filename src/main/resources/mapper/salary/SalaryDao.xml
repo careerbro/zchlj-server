@@ -27,6 +27,7 @@
         a.gra_num as graNum,
         a.share_num as shareNum,
         a.reserve_num as reserveNum,
+        a.read_num as readNum,
         a.heat_rate	 as heatRate,
         a.create_time as createTime,
         a.update_time as updateTime
@@ -48,7 +49,7 @@
         FROM salary a
         <include refid="salaryJoins"/>
         WHERE a.user_id = #{user}
-        ORDER BY a.create_time DESC ,a.update_time DESC
+        ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
     </select>
 
     <select id="getSalaryById" resultType="com.main.careerbro.modules.salary.entity.Salary">
@@ -80,6 +81,9 @@
         <if test="null != jobId">
             AND a.job_id = #{jobId}
         </if>
+        <if test="null !=">
+            AND a.edu_background = #{type}
+        </if>
         ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
     </select>
 
@@ -105,6 +109,7 @@
         opp_num,
         gra_num,
         share_num,
+        read_num,
         reserve_num,
         create_time,
         update_time
@@ -125,6 +130,7 @@
         #{eduBackGround},
         #{offerTime},
         #{experienceMonthNum},
+        0,
         0,
         0,
         0,
@@ -196,4 +202,11 @@
         WHERE eva.user_id = #{uid}
         AND eva.reserve = 1
     </select>
+    
+    <update id="addReadNum">
+        UPDATE salary
+        SET read_num = read_num + 1
+        WHERE id = #{id}
+    </update>
+
 </mapper>

@@ -57,6 +57,7 @@ public class SalaryController {
         User user = userService.getUser(redisService.get(httpServletRequest.getParameter("token")).toString());
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
         Salary salary = salaryService.getSalaryById(id);
+        salaryService.addReadNum(id);
         map.put("data",salary);
         map.put("extendData",evaSystemService.getEvaSystem(user.getId(),salary.getId()));
         map.put("commentsNum",commentService.getNumBySalaryId(salary.getId()));

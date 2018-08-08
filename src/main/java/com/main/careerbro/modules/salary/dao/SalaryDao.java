@@ -54,4 +54,11 @@ public interface SalaryDao {
      * @param evaSystem
      */
     public void updateSalaryExtend(EvaSystem evaSystem);
+
+    /**
+     * 更新阅读量
+     * @param id
+     */
+    public void addReadNum(String id);
+
 }

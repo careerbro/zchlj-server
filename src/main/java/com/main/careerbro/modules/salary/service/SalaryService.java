@@ -5,6 +5,7 @@ import com.main.careerbro.modules.salary.entity.EvaSystem;
 import com.main.careerbro.modules.salary.entity.Salary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,7 @@ public class SalaryService {
      * 保存薪资
      * @param salary
      */
+    @Transactional
     public void saveSalary(Salary salary){
 
         salary.setId(UUID.randomUUID().toString().replaceAll("-",""));
@@ -57,6 +59,7 @@ public class SalaryService {
      * 更新薪资
      * @param salary
      */
+    @Transactional
     public void updateSalary(Salary salary){
         salaryDao.updateSalary(salary);
     }
@@ -75,7 +78,19 @@ public class SalaryService {
      * 更新salary的点赞等四个
      * @param evaSystem
      */
+    @Transactional
     public void updateSalaryExtend(EvaSystem evaSystem){
         salaryDao.updateSalaryExtend(evaSystem);
     }
+
+    /**
+     * 更新阅读量
+     * @param id
+     */
+    @Transactional
+    public void addReadNum(String id){
+
+        salaryDao.addReadNum(id);
+    }
+    
 }
