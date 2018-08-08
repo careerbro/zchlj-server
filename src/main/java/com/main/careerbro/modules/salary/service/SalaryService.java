@@ -92,5 +92,5 @@ public class SalaryService {
 
         salaryDao.addReadNum(id);
     }
-    
+
 }
