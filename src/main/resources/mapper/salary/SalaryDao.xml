@@ -90,6 +90,12 @@
         <if test="null != experienceMonthNumMax">
             AND experience_month_num &lt;= #{experienceMonthNumMax}
         </if>
+        <if test="null !=yearSalaryMax">
+            AND year_salary_max >= #{yearSalaryMax}
+        </if>
+        <if test="null !=yearSalaryMin">
+            AND year_salary_min &lt;= #{yearSalaryMin}
+        </if>
         ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
     </select>
 
