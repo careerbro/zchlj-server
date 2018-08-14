@@ -213,6 +213,7 @@
         RIGHT JOIN eva_system eva on eva.salary_id = a.id
         WHERE eva.user_id = #{uid}
         AND eva.reserve = 1
+        ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
     </select>
     
     <update id="addReadNum">
