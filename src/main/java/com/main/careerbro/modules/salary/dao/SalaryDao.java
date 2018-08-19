@@ -4,6 +4,7 @@ import com.main.careerbro.modules.salary.entity.EvaSystem;
 import com.main.careerbro.modules.salary.entity.Salary;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,5 +61,12 @@ public interface SalaryDao {
      * @param id
      */
     public void addReadNum(String id);
+
+    /**
+     * 获取热门公司
+     * @param map
+     * @return
+     */
+    public List<HashMap<String,String>> getMostCor(Map<String,String> map);
 
 }

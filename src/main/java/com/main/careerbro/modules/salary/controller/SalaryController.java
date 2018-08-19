@@ -121,4 +121,11 @@ public class SalaryController {
         return Ajax.success();
     }
 
+    @RequestMapping(method = RequestMethod.GET,value = "getMostCor")
+    public AjaxJson mostCor(@RequestParam Map<String,String > params){
+
+        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
+        map.put("data",salaryService.getMostCor(params));
+        return Ajax.success(map);
+    }
 }

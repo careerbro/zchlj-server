@@ -65,9 +65,9 @@
         <include refid="salaryColumns"/>
         FROM salary a
         <include refid="salaryJoins"/>
-        WHERE 1=1
+        <where>
         <if test="null != collegeId">
-            AND a.college_id = #{collegeId}
+            a.college_id = #{collegeId}
         </if>
         <if test="null != industryId">
             AND a.industry_id = #{industryId}
@@ -90,13 +90,27 @@
         <if test="null != experienceMonthNumMax">
             AND experience_month_num &lt;= #{experienceMonthNumMax}
         </if>
-        <if test="null !=yearSalaryMax">
+        <if test="null != yearSalaryMax">
             AND year_salary_max >= #{yearSalaryMax}
         </if>
-        <if test="null !=yearSalaryMin">
+        <if test="null != yearSalaryMin">
             AND year_salary_min &lt;= #{yearSalaryMin}
         </if>
-        ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
+        </where>
+        <choose>
+            <when test="order == 0">
+                ORDER BY read_num DESC
+            </when>
+            <when test="order == 1">
+                ORDER BY read_num DESC
+            </when>
+            <when test="order == 2">
+                ORDER BY read_num DESC
+            </when>
+            <otherwise>
+                ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
+            </otherwise>
+        </choose>
     </select>
 
     <insert id="saveSalary">
@@ -226,4 +240,15 @@
         <!--SELECT * FROM salary-->
         <!--WHERE  date(update_time) >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)-->
     <!--</select>-->
+    
+    <select id="getMostCor" resultType="java.util.HashMap">
+        SELECT c.id as id,c.cname as name,count(c.id) as number
+        FROM (SELECT b.id,b.cname
+        FROM salary a
+        JOIN corporation b ON a.cor_id = b.id
+        WHERE  date(a.update_time) >= DATE_SUB(CURDATE(), INTERVAL #{day} DAY)) c
+        GROUP BY c.id,c.cname
+        ORDER BY count(c.id) DESC
+        LIMIT (#{start}-1)*#{limit},#{limit}
+    </select>
 </mapper>
