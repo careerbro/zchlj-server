@@ -94,8 +94,23 @@ public class SalaryService {
         salaryDao.addReadNum(id);
     }
 
+    /**
+     * 获取热门公司
+     * @param map
+     * @return
+     */
     public List<HashMap<String,String>> getMostCor(Map<String,String> map){
 
         return salaryDao.getMostCor(map);
+    };
+
+    /**
+     * 获取热门city
+     * @param map
+     * @return
+     */
+    public List<HashMap<String,String>> getMostCity(Map<String,String> map){
+
+        return salaryDao.getMostCity(map);
     };
 }

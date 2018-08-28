@@ -236,10 +236,17 @@
         WHERE id = #{id}
     </update>
 
-    <!--<select id="getMostCicy" resultType="java.util.HashMap">-->
-        <!--SELECT * FROM salary-->
-        <!--WHERE  date(update_time) >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)-->
-    <!--</select>-->
+    <select id="getMostCity" resultType="java.util.HashMap">
+        SELECT d.id as id,d.cname as name,count(d.id) as number
+        FROM (SELECT c.id,c.city as cname
+        FROM salary a
+        JOIN district b ON a.city_id = b.id
+		JOIN district c ON c.city = b.city AND c.place_level = '3'
+        WHERE  date(a.update_time) >= DATE_SUB(CURDATE(), INTERVAL #{day} DAY)) d
+        GROUP BY d.id,d.cname
+        ORDER BY count(d.id) DESC
+        LIMIT (#{start}-1)*#{limit},#{limit}
+    </select>
     
     <select id="getMostCor" resultType="java.util.HashMap">
         SELECT c.id as id,c.cname as name,count(c.id) as number
@@ -251,4 +258,5 @@
         ORDER BY count(c.id) DESC
         LIMIT (#{start}-1)*#{limit},#{limit}
     </select>
+
 </mapper>

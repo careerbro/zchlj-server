@@ -69,4 +69,11 @@ public interface SalaryDao {
      */
     public List<HashMap<String,String>> getMostCor(Map<String,String> map);
 
+    /**
+     * 获取热门city
+     * @param map
+     * @return
+     */
+    public List<HashMap<String,String>> getMostCity(Map<String,String> map);
+
 }
