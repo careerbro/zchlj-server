@@ -99,7 +99,7 @@ public class SalaryService {
      * @param map
      * @return
      */
-    public List<HashMap<String,String>> getMostCor(Map<String,String> map){
+    public List<HashMap<String,String>> getMostCor(Map<String,Integer> map){
 
         return salaryDao.getMostCor(map);
     };
@@ -109,7 +109,7 @@ public class SalaryService {
      * @param map
      * @return
      */
-    public List<HashMap<String,String>> getMostCity(Map<String,String> map){
+    public List<HashMap<String,String>> getMostCity(Map<String,Integer> map){
 
         return salaryDao.getMostCity(map);
     };

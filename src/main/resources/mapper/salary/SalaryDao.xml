@@ -245,7 +245,7 @@
         WHERE  date(a.update_time) >= DATE_SUB(CURDATE(), INTERVAL #{day} DAY)) d
         GROUP BY d.id,d.cname
         ORDER BY count(d.id) DESC
-        LIMIT (#{start}-1)*#{limit},#{limit}
+        LIMIT ${start*limit-limit},${limit}
     </select>
     
     <select id="getMostCor" resultType="java.util.HashMap">
@@ -253,10 +253,10 @@
         FROM (SELECT b.id,b.cname
         FROM salary a
         JOIN corporation b ON a.cor_id = b.id
-        WHERE  date(a.update_time) >= DATE_SUB(CURDATE(), INTERVAL #{day} DAY)) c
+        WHERE  date(a.update_time) >= DATE_SUB(CURDATE(), INTERVAL ${day} DAY)) c
         GROUP BY c.id,c.cname
         ORDER BY count(c.id) DESC
-        LIMIT (#{start}-1)*#{limit},#{limit}
+        LIMIT ${start*limit-limit},${limit}
     </select>
 
 </mapper>

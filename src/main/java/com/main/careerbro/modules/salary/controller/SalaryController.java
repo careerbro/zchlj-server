@@ -122,7 +122,7 @@ public class SalaryController {
     }
 
     @RequestMapping(method = RequestMethod.GET,value = "getMostCor")
-    public AjaxJson getMostCor(@RequestParam Map<String,String > params){
+    public AjaxJson getMostCor(@RequestParam Map<String,Integer > params){
 
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
         map.put("data",salaryService.getMostCor(params));
@@ -130,7 +130,7 @@ public class SalaryController {
     }
 
     @RequestMapping(method = RequestMethod.GET,value = "getMostCity")
-    public AjaxJson getMostCity(@RequestParam Map<String,String > params){
+    public AjaxJson getMostCity(@RequestParam Map<String,Integer > params){
 
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
         map.put("data",salaryService.getMostCity(params));
