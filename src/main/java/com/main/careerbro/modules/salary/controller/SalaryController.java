@@ -4,6 +4,7 @@ import com.main.careerbro.common.jason.Ajax;
 import com.main.careerbro.common.jason.AjaxEnum;
 import com.main.careerbro.common.jason.AjaxJson;
 import com.main.careerbro.common.redis.RedisServiceImpl;
+import com.main.careerbro.common.utils.LuceneUtils;
 import com.main.careerbro.modules.comment.entity.Comment;
 import com.main.careerbro.modules.comment.service.CommentService;
 import com.main.careerbro.modules.salary.entity.EvaSystem;
@@ -13,10 +14,12 @@ import com.main.careerbro.modules.salary.service.SalaryService;
 import com.main.careerbro.modules.user.entity.User;
 import com.main.careerbro.modules.user.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.*;
 
 @RestController
@@ -136,4 +139,23 @@ public class SalaryController {
         map.put("data",salaryService.getMostCity(params));
         return Ajax.success(map);
     }
+
+    @RequestMapping(method = RequestMethod.GET,value = "getSearch")
+    public AjaxJson getSearch(@RequestParam Map<String,String > params){
+
+        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
+        map.put("data",salaryService.getSearch(params));
+        return Ajax.success(map);
+    }
+
+//    @RequestMapping(method = RequestMethod.GET,value = "util/{temp}")
+//    public AjaxJson getCorperation(@PathVariable String temp) throws IOException, ParseException {
+//        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
+//        map.put("data0", LuceneUtils.search(temp,0));//公司
+//        map.put("data1", LuceneUtils.search(temp,1));//行业
+//        map.put("data2", LuceneUtils.search(temp,2));//岗位
+//        map.put("data3", LuceneUtils.search(temp,3));//地区
+//        map.put("data4", LuceneUtils.search(temp,4));//学校
+//        return Ajax.success(map);
+//    }
 }

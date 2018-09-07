@@ -102,10 +102,10 @@
                 ORDER BY read_num DESC
             </when>
             <when test="order == 1">
-                ORDER BY read_num DESC
+                ORDER BY agree_num DESC
             </when>
             <when test="order == 2">
-                ORDER BY read_num DESC
+                ORDER BY reserve_num DESC
             </when>
             <otherwise>
                 ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
@@ -257,6 +257,34 @@
         GROUP BY c.id,c.cname
         ORDER BY count(c.id) DESC
         LIMIT ${start*limit-limit},${limit}
+    </select>
+    
+    <select id="getSearch" resultType="com.main.careerbro.modules.salary.entity.Salary">
+        SELECT
+        <include refid="salaryColumns"/>
+        FROM salary a
+        <include refid="salaryJoins"/>
+        WHERE edu_background = #{eduBackGround}
+        AND (
+        d.name LIKE CONCAT('%','${temp}','%') OR
+        j.cname LIKE CONCAT('%','${temp}','%') OR
+        col.cname LIKE CONCAT('%','${temp}','%') OR
+        cor.cname LIKE CONCAT('%','${temp}','%')
+        )
+        <choose>
+            <when test="order == 0">
+                ORDER BY read_num DESC
+            </when>
+            <when test="order == 1">
+                ORDER BY agree_num DESC
+            </when>
+            <when test="order == 2">
+                ORDER BY reserve_num DESC
+            </when>
+            <otherwise>
+                ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
+            </otherwise>
+        </choose>
     </select>
 
 </mapper>

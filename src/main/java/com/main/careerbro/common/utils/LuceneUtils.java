@@ -305,9 +305,11 @@ public class LuceneUtils {
                 String cName = document.get("cName");
                 String id = document.get("id");
                 String eName = document.get("eName");
+                String indexType = document.get("type");
                 hashMap.put("id", id);
                 hashMap.put("cName", cName);
                 hashMap.put("eName", eName);
+                hashMap.put("type", indexType);
 //                hashMap.put("label", cName);
                 data.add(hashMap);
             }
@@ -333,8 +335,10 @@ public class LuceneUtils {
             // 8、根据Document对象获取所需要的值
             String cName = document.get("cName");
             String id = document.get("id");
+            String indexType = document.get("type");
             hashMap.put("id", id);
             hashMap.put("cName", cName);
+            hashMap.put("type",indexType);
 //                hashMap.put("label", cName);
             data.add(hashMap);
 //            }
@@ -464,6 +468,7 @@ public class LuceneUtils {
     private static void addField2Document(Document doc, College college) {
         //不分词,不索引,储存
         doc.add(new StoredField("id", college.getId()));
+//        doc.add(new StoredField("type", "college"));
         //分词,索引,不储存
         doc.add(new TextField("cName", college.getCName(), Field.Store.YES));
         if(null!=college.getEName())
@@ -473,6 +478,7 @@ public class LuceneUtils {
     private static void addField2Document(Document doc, Corporation corporation) {
         //不分词,不索引,储存
         doc.add(new StoredField("id", corporation.getId()));
+//        doc.add(new StoredField("type", "corporation"));
         //分词,索引,不储存
         doc.add(new TextField("cName", corporation.getCName(), Field.Store.YES));
     }
@@ -480,6 +486,7 @@ public class LuceneUtils {
     private static void addField2Document(Document doc, Industry industry) {
         //不分词,不索引,储存
         doc.add(new StoredField("id", industry.getId()));
+//        doc.add(new StoredField("type", "industry"));
         //分词,索引,不储存
         doc.add(new TextField("cName", industry.getCName(), Field.Store.YES));
     }
@@ -487,6 +494,7 @@ public class LuceneUtils {
     private static void addField2Document(Document doc, Job job) {
         //不分词,不索引,储存
         doc.add(new StoredField("id", job.getId()));
+//        doc.add(new StoredField("type", "job"));
         //分词,索引,不储存
         doc.add(new TextField("cName", job.getCName(), Field.Store.YES));
     }
@@ -494,8 +502,9 @@ public class LuceneUtils {
     private static void addField2Document(Document doc, District district) {
         //不分词,不索引,储存
         doc.add(new StoredField("id", district.getId()));
+//        doc.add(new StoredField("type", "district"));
         //分词,索引,不储存
-        doc.add(new TextField("cName", district.getCity(), Field.Store.YES));
+        doc.add(new TextField("cName", district.getName(), Field.Store.YES));
     }
     // 删除文件
 //    private static void delFile(String path) {

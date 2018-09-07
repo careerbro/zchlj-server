@@ -113,4 +113,14 @@ public class SalaryService {
 
         return salaryDao.getMostCity(map);
     };
+
+    /**
+     * 搜索薪资
+     * @param map
+     * @return
+     */
+    public List<Salary> getSearch(Map<String,String> map){
+
+        return salaryDao.getSearch(map);
+    }
 }

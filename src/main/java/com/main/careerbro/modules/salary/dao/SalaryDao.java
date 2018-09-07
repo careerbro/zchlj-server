@@ -76,4 +76,11 @@ public interface SalaryDao {
      */
     public List<HashMap<String,String>> getMostCity(Map<String,Integer> map);
 
+    /**
+     * 搜索薪资
+     * @param map
+     * @return
+     */
+    public List<Salary> getSearch(Map<String,String> map);
+
 }
