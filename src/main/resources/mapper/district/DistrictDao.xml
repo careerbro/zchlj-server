@@ -4,12 +4,8 @@
 
     <sql id="districtColumns">
         a.id as id,
-        a.place_level as placeLevel,
-        a.country as country,
-        a.state as state,
-        a.city as city,
-        a.region as region,
-        a.place_code as placeCode
+        a.parentID as parentID,
+        a.name as name
     </sql>
 
     <sql id="districtJoins">
@@ -20,7 +16,6 @@
         SELECT
         <include refid="districtColumns"/>
         FROM district a
-        WHERE place_level = 3
     </select>
 
 </mapper>

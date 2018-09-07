@@ -9,21 +9,9 @@ public class District {
     private String id;
     @Getter
     @Setter
-    private String placeLevel;
+    private String parentID;
     @Getter
     @Setter
-    private String country;
-    @Getter
-    @Setter
-    private String state;
-    @Getter
-    @Setter
-    private String city;
-    @Getter
-    @Setter
-    private String region;
-    @Getter
-    @Setter
-    private String placeCode;
+    private String name;
 
 }

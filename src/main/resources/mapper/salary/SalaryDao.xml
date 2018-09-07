@@ -4,7 +4,7 @@
 
     <sql id="salaryColumns">
         a.id as id,
-        d.city as city,
+        d.name as city,
         d.id as cityId,
         j.cname as job,
         j.id as jobId,
