@@ -3,7 +3,9 @@ package com.main.careerbro.modules.district.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-public class District {
+import java.io.Serializable;
+
+public class District implements Serializable {
     @Getter
     @Setter
     private String id;

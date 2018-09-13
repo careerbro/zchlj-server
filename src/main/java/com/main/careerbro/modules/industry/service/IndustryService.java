@@ -12,11 +12,6 @@ public class IndustryService {
     @Autowired
     IndustryDao industryDao;
 
-    public List<Industry> getIndustry(String temp){
-
-        return industryDao.getIndustry(temp);
-    }
-
     public List<Industry> getAllIndustry(){
 
         return industryDao.getAllIndustry();

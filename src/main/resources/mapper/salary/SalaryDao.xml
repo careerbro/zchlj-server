@@ -85,16 +85,22 @@
             AND a.edu_background = #{type}
         </if>
         <if test="null != experienceMonthNumMin">
-            AND experience_month_num >= #{experienceMonthNumMin}
+            AND a.experience_month_num >= #{experienceMonthNumMin}
         </if>
         <if test="null != experienceMonthNumMax">
-            AND experience_month_num &lt;= #{experienceMonthNumMax}
+            AND a.experience_month_num &lt;= #{experienceMonthNumMax}
         </if>
         <if test="null != yearSalaryMax">
-            AND year_salary_max >= #{yearSalaryMax}
+            AND a.year_salary_max >= #{yearSalaryMax}
         </if>
         <if test="null != yearSalaryMin">
-            AND year_salary_min &lt;= #{yearSalaryMin}
+            AND a.year_salary_min &lt;= #{yearSalaryMin}
+        </if>
+        <if test="null != startTime">
+            AND to_date(#{startTime},'yyyy-MM-dd') &lt;= a.offer_time
+        </if>
+        <if test="null != endTime">
+            AND to_date(#{endTime},'yyyy-MM-dd') +1 >= a.offer_time
         </if>
         </where>
         <choose>
@@ -264,13 +270,17 @@
         <include refid="salaryColumns"/>
         FROM salary a
         <include refid="salaryJoins"/>
-        WHERE edu_background = #{eduBackGround}
-        AND (
-        d.name LIKE CONCAT('%','${temp}','%') OR
-        j.cname LIKE CONCAT('%','${temp}','%') OR
-        col.cname LIKE CONCAT('%','${temp}','%') OR
-        cor.cname LIKE CONCAT('%','${temp}','%')
-        )
+        <where>
+            <if test="eduBackGround != 0">
+                edu_background = #{eduBackGround}
+            </if>
+            AND (
+            d.name LIKE CONCAT('%','${temp}','%') OR
+            j.cname LIKE CONCAT('%','${temp}','%') OR
+            col.cname LIKE CONCAT('%','${temp}','%') OR
+            cor.cname LIKE CONCAT('%','${temp}','%')
+            )
+        </where>
         <choose>
             <when test="order == 0">
                 ORDER BY read_num DESC

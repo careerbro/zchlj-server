@@ -3,7 +3,9 @@ package com.main.careerbro.modules.college.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-public class College {
+import java.io.Serializable;
+
+public class College implements Serializable {
     @Getter @Setter private String id;
     @Getter @Setter private String city;
     @Getter @Setter private String districtName;

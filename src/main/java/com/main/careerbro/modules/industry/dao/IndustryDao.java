@@ -7,7 +7,5 @@ import java.util.List;
 
 @Component
 public interface IndustryDao {
-    public List<Industry> getIndustry(String temp);
-
     public List<Industry> getAllIndustry();
 }

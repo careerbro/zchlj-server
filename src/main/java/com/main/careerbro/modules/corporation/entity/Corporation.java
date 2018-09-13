@@ -3,7 +3,9 @@ package com.main.careerbro.modules.corporation.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Corporation {
+import java.io.Serializable;
+
+public class Corporation implements Serializable {
     @Getter @Setter private String id;
     @Getter @Setter private String city;
     @Getter @Setter private String eName;
