@@ -271,7 +271,7 @@
         FROM salary a
         <include refid="salaryJoins"/>
         <where>
-            <if test="eduBackGround != 0">
+            <if test="eduBackGround != 0 OR null = eduBackGround">
                 edu_background = #{eduBackGround}
             </if>
             AND (
