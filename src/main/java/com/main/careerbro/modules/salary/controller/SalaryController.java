@@ -46,6 +46,19 @@ public class SalaryController {
         return Ajax.success(map);
     }
 
+    @RequestMapping(method = RequestMethod.DELETE,value = "salary/{id}")
+    public AjaxJson deleteSalary(@PathVariable String id,HttpServletRequest httpServletRequest){
+
+        User user = userService.getUser(redisService.get(httpServletRequest.getParameter("token")).toString());
+        Salary salary = salaryService.getSalaryById(id);
+        if(user.getId().equals(salary.getUser())){
+            salaryService.deleteSalary(id);
+            return Ajax.success();
+        }else {
+            return Ajax.error(AjaxEnum.NO_PERMISSION);
+        }
+    }
+
     @RequestMapping(method = RequestMethod.GET,value = "salary")
     public AjaxJson getAllSalary(@RequestParam Map<String,String > params){
 
@@ -63,6 +76,7 @@ public class SalaryController {
         salaryService.addReadNum(id);
         map.put("data",salary);
         map.put("extendData",evaSystemService.getEvaSystem(user.getId(),salary.getId()));
+//        map.put("extendData",evaSystemService.getEvaSystem("bdadbab4199446b394e61a6b8a899d70",salary.getId()));
         map.put("commentsNum",commentService.getNumBySalaryId(salary.getId()));
         return Ajax.success(map);
     }

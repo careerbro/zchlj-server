@@ -303,5 +303,10 @@
             </otherwise>
         </choose>
     </select>
+    
+    <delete id="deleteSalary">
+        DELETE FROM salary
+        WHERE id = #{id}
+    </delete>
 
 </mapper>

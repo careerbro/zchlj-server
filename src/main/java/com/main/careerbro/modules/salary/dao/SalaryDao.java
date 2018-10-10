@@ -83,4 +83,9 @@ public interface SalaryDao {
      */
     public List<Salary> getSearch(Map<String,String> map);
 
+    /**
+     * 删除salary
+     * @param id
+     */
+    public void deleteSalary(String id);
 }

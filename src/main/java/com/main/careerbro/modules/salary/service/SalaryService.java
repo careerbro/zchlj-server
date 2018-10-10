@@ -123,4 +123,13 @@ public class SalaryService {
 
         return salaryDao.getSearch(map);
     }
+
+    /**
+     * 删除薪资
+     * @param id
+     */
+    public void deleteSalary(String id){
+
+        salaryDao.deleteSalary(id);
+    }
 }

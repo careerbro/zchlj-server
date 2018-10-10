@@ -12,6 +12,7 @@ public enum AjaxEnum {
     NO_COMMENTS("103","该用户没有评论"),
     NO_TOKEN("104","缺少token"),
     TOKEN_ERROR("105","token错误"),
+    NO_PERMISSION("106","没有权限"),
     SUCCESS("0","操作成功");
 
     @Getter
