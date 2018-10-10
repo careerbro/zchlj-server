@@ -23,7 +23,7 @@
         <include refid="commentColumns" />
         FROM comments a
         <include refid="commentJoins" />
-        WHERE a.salary_id = s.id
+        WHERE a.salary_id = #{salaryId}
     </select>
 
     <select id="getByUserId" resultType="com.main.careerbro.modules.comment.entity.Comment">
