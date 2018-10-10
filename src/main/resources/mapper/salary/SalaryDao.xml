@@ -12,6 +12,7 @@
         col.cname as college,
         i.cname as industry,
         cor.cname as corporation,
+        cor.sname as sCorporation,
         cor.id as corporationId,
         a.year_salary_max as yearSalaryMax,
         a.year_salary_min as yearSalaryMin,
@@ -30,7 +31,8 @@
         a.read_num as readNum,
         a.heat_rate	 as heatRate,
         a.create_time as createTime,
-        a.update_time as updateTime
+        a.update_time as updateTime,
+        COUNT(com.id) as commentsNum
 
     </sql>
 
@@ -41,6 +43,7 @@
         LEFT JOIN college col ON col.id = a.college_id
         LEFT JOIN industry i ON i.id = a.industry_id
         LEFT JOIN corporation cor ON cor.id = a.cor_id
+        LEFT JOIN comments com ON  com.salary_id = a.id
     </sql>
 
     <select id="getSalaryByUser" resultType="com.main.careerbro.modules.salary.entity.Salary">
@@ -49,6 +52,7 @@
         FROM salary a
         <include refid="salaryJoins"/>
         WHERE a.user_id = #{user}
+        GROUP BY a.id
         ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
     </select>
 
@@ -66,43 +70,44 @@
         FROM salary a
         <include refid="salaryJoins"/>
         <where>
-        <if test="null != collegeId">
+        <if test="null != collegeId and ''!= collegeId">
             a.college_id = #{collegeId}
         </if>
-        <if test="null != industryId">
+        <if test="null != industryId and ''!= industryId">
             AND a.industry_id = #{industryId}
         </if>
-        <if test="null != corporationId">
+        <if test="null != corporationId and ''!= corporationId">
             AND a.cor_id = #{corporationId}
         </if>
-        <if test="null != cityId">
+        <if test="null != cityId and ''!= cityId">
             AND a.city_id = #{cityId}
         </if>
-        <if test="null != jobId">
+        <if test="null != jobId and ''!= jobId">
             AND a.job_id = #{jobId}
         </if>
-        <if test="null != type">
+        <if test="null != type and ''!= type">
             AND a.edu_background = #{type}
         </if>
-        <if test="null != experienceMonthNumMin">
+        <if test="null != experienceMonthNumMin and ''!= experienceMonthNumMin">
             AND a.experience_month_num >= #{experienceMonthNumMin}
         </if>
-        <if test="null != experienceMonthNumMax">
+        <if test="null != experienceMonthNumMax and ''!= experienceMonthNumMax">
             AND a.experience_month_num &lt;= #{experienceMonthNumMax}
         </if>
-        <if test="null != yearSalaryMax">
+        <if test="null != yearSalaryMax and ''!= yearSalaryMax">
             AND a.year_salary_max >= #{yearSalaryMax}
         </if>
-        <if test="null != yearSalaryMin">
+        <if test="null != yearSalaryMin and ''!= yearSalaryMin">
             AND a.year_salary_min &lt;= #{yearSalaryMin}
         </if>
-        <if test="null != startTime">
-            AND to_date(#{startTime},'yyyy-MM-dd') &lt;= a.offer_time
+        <if test="null != startTime and ''!= startTime">
+            AND str_to_date(#{startTime},'%Y-%m-%d') &lt;= a.offer_time
         </if>
-        <if test="null != endTime">
-            AND to_date(#{endTime},'yyyy-MM-dd') +1 >= a.offer_time
+        <if test="null != endTime and ''!= endTime">
+            AND str_to_date(#{endTime},'%Y-%m-%d') +1 >= a.offer_time
         </if>
         </where>
+        GROUP BY a.id
         <choose>
             <when test="order == 0">
                 ORDER BY read_num DESC
@@ -281,6 +286,7 @@
             cor.cname LIKE CONCAT('%','${temp}','%')
             )
         </where>
+        GROUP BY a.id
         <choose>
             <when test="order == 0">
                 ORDER BY read_num DESC

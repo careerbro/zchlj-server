@@ -11,6 +11,7 @@ public class Salary {
     @Getter @Setter private String college;
     @Getter @Setter private String industry;
     @Getter @Setter private String corporation;
+    @Getter @Setter private String sCorporation;
     @Getter @Setter private String corporationId;
     @Getter @Setter private String city;
     @Getter @Setter private String cityId;
@@ -32,4 +33,5 @@ public class Salary {
     @Getter @Setter private String createTime;
     @Getter @Setter private String updateTime;
     @Getter @Setter private int readNum;
+    @Getter @Setter private int commentsNum;
 }
