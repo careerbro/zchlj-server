@@ -79,6 +79,9 @@
         <if test="null != corporationId and ''!= corporationId">
             AND a.cor_id = #{corporationId}
         </if>
+        <if test="null != collegeLevel	 and '' != collegeLevel">
+            AND a.college_level = #{collegeLevel}
+        </if>
         <if test="null != cityId and ''!= cityId">
             AND a.city_id = #{cityId}
         </if>
