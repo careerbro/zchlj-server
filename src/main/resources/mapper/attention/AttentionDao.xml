@@ -56,7 +56,7 @@
     </select>
     
     <select id="getIsAttend" resultType="String">
-        SELECT id
+        SELECT id,validity
         FROM user_attention
         WHERE user_id = #{userId}
         AND  attention_id = #{attendId}
