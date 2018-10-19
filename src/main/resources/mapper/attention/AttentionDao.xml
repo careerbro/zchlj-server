@@ -56,10 +56,11 @@
     </select>
     
     <select id="getIsAttend" resultType="String">
-        SELECT id,validity
+        SELECT id
         FROM user_attention
         WHERE user_id = #{userId}
         AND  attention_id = #{attendId}
+        AND  validity = 1
     </select>
 
     <insert id="saveAttention">
