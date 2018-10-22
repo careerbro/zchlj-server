@@ -20,11 +20,11 @@ public class SalaryService {
 
     /**
      * 根据用户id查询薪资
-     * @param usrId
+     * @param params
      * @return
      */
-    public List<Salary> getSalaryByUser(String usrId){
-        return salaryDao.getSalaryByUser(usrId);
+    public List<Salary> getSalaryByUser(Map<String,String > params){
+        return salaryDao.getSalaryByUser(params);
     }
 
     /**

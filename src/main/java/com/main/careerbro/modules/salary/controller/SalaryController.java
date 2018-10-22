@@ -38,11 +38,11 @@ public class SalaryController {
     @Autowired
     private RedisServiceImpl redisService;
 
-    @RequestMapping(method = RequestMethod.GET,value = "user/{id}")
-    public AjaxJson getByUserId(@PathVariable String id){
+    @RequestMapping(method = RequestMethod.GET,value = "user")
+    public AjaxJson getByUserId(@RequestParam Map<String,String > params){
 
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("data",salaryService.getSalaryByUser(id));
+        map.put("data",salaryService.getSalaryByUser(params));
         return Ajax.success(map);
     }
 

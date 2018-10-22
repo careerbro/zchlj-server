@@ -54,6 +54,7 @@
         WHERE a.user_id = #{user}
         GROUP BY a.id
         ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
+        LIMIT ${start*limit-limit},${limit}
     </select>
 
     <select id="getSalaryById" resultType="com.main.careerbro.modules.salary.entity.Salary">
