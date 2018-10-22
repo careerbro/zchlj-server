@@ -125,6 +125,7 @@
                 ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
             </otherwise>
         </choose>
+        LIMIT ${start*limit-limit},${limit}
     </select>
 
     <insert id="saveSalary">
@@ -305,6 +306,7 @@
                 ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
             </otherwise>
         </choose>
+        LIMIT ${start*limit-limit},${limit}
     </select>
     
     <delete id="deleteSalary">
