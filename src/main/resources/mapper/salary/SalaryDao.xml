@@ -110,6 +110,14 @@
         <if test="null != endTime and ''!= endTime">
             AND DATE_ADD(str_to_date( #{endTime}, '%Y-%m-%d' ),INTERVAL 1 DAY) > a.offer_time
         </if>
+        <if test="null !=temp and '' !=temp">
+            AND (
+            d.name LIKE CONCAT('%','${temp}','%') OR
+            j.cname LIKE CONCAT('%','${temp}','%') OR
+            col.cname LIKE CONCAT('%','${temp}','%') OR
+            cor.cname LIKE CONCAT('%','${temp}','%')
+            )
+        </if>
         </where>
         GROUP BY a.id
         <choose>
