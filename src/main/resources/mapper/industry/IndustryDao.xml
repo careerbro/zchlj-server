@@ -17,6 +17,7 @@
         <include refid="industryColumns"/>
         FROM industry a
         <include refid="industryJoins"/>
+        ORDER BY industry_level
     </select>
 
 </mapper>
