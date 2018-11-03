@@ -168,7 +168,9 @@
         read_num,
         reserve_num,
         create_time,
-        update_time
+        update_time,
+        offer_year,
+        recruit_season
         )VALUES (
         #{id},
         #{city},
@@ -193,7 +195,9 @@
         0,
         0,
         NOW(),
-        NOW()
+        NOW(),
+        #{offerYear},
+        #{recruitSeason}
         )
     </insert>
 
