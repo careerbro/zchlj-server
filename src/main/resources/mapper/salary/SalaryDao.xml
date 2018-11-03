@@ -218,7 +218,9 @@
         edu_background = #{eduBackGround},
         offer_time = #{offerTime},
         experience_month_num = #{experienceMonthNum},
-        update_time = NOW()
+        update_time = NOW(),
+        recruit_season = #{recruitSeason},
+        offer_year = #{offerYear}
         WHERE id = #{id}
     </update>
     
