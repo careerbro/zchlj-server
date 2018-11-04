@@ -23,8 +23,7 @@
         SELECT
         <include refid="attentionColumns"/>
         <if test="category==1">
-            , c.sname as attend
-            , c.cname as cname
+            , if( c.sname , c.sname ,c.cname) as attend
         </if>
         <if test="category==2">
             ,c.cname as attend
