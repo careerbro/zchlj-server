@@ -124,6 +124,12 @@
             cor.cname LIKE CONCAT('%','${temp}','%')
             )
         </if>
+        <if test="null != offerYear and ''!= offerYear">
+            AND a.offer_year = #{offerYear}
+        </if>
+        <if test="null != recruitSeason and '' != recruitSeason">
+            AND a.recruit_season = #{recruitSeason}
+        </if>
         </where>
         GROUP BY a.id
         <choose>
