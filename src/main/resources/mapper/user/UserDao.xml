@@ -29,6 +29,7 @@
     <select id="getUserSum" resultType="Integer">
         SELECT count(a.id)
         FROM user a
+        WHERE a.college_id = #{college}
     </select>
 
     <insert id="saveUser">

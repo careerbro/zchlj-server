@@ -45,7 +45,7 @@ public class UserController extends BaseController{
         user.setOpenid(redisService.get(httpServletRequest.getParameter("token")).toString());
         userService.saveUser(user);
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("sum",userService.getUserSum());
+        map.put("sum",userService.getUserSum(user.getCollegeId()));
         return Ajax.success(map);
     }
     /**
@@ -72,10 +72,10 @@ public class UserController extends BaseController{
     /**
      * 获取用户总数
      */
-    @RequestMapping(method = RequestMethod.GET,value = "sum")
-    public AjaxJson getUserSum(){
-        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("sum",userService.getUserSum());
-        return Ajax.success(map);
-    }
+//    @RequestMapping(method = RequestMethod.GET,value = "sum")
+//    public AjaxJson getUserSum(){
+//        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
+//        map.put("sum",userService.getUserSum());
+//        return Ajax.success(map);
+//    }
 }

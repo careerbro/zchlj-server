@@ -34,7 +34,7 @@ public class UserService {
         userDao.deleteUser(id);
     }
 
-    public Integer getUserSum(){
-        return userDao.getUserSum();
+    public Integer getUserSum(String college){
+        return userDao.getUserSum(college);
     }
 }

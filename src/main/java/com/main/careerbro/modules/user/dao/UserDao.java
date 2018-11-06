@@ -33,6 +33,6 @@ public interface UserDao {
     /**
      * 返回用户总数
      */
-    public Integer getUserSum();
+    public Integer getUserSum(String college);
 }
 

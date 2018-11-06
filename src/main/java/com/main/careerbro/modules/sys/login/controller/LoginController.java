@@ -71,7 +71,6 @@ public class LoginController extends BaseController{
             e.printStackTrace();
         }
 
-        System.out.println("44");
         //获取失败
         return Ajax.error(AjaxEnum.WxMaJscode2SessionResult_ERROR);
     }
