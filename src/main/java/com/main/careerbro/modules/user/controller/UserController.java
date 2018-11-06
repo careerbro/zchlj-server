@@ -45,7 +45,7 @@ public class UserController extends BaseController{
         user.setOpenid(redisService.get(httpServletRequest.getParameter("token")).toString());
         userService.saveUser(user);
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("sum",userService.getUserSum(user.getCollege()));
+        map.put("sum",userService.getUserSum(user.getCollegeId()));
         return Ajax.success(map);
     }
     /**
