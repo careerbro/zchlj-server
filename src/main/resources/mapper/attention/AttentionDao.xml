@@ -40,7 +40,7 @@
             JOIN corporation c ON c.id = a.attention_id
         </if>
         <if test="category==2">
-            JOIN industry c ON c.id = a.attention_id
+            JOIN job c ON c.id = a.attention_id
         </if>
         <if test="category==3">
             JOIN district c ON c.id = a.attention_id
