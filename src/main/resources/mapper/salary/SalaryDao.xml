@@ -142,8 +142,11 @@
             <when test="order == 2">
                 ORDER BY a.reserve_num DESC
             </when>
+            <when test="order == 3">
+                ORDER BY a.heat_rate DESC
+            </when>
             <otherwise>
-                ORDER BY a.heat_rate DESC,a.create_time DESC ,a.update_time DESC
+                ORDER BY a.create_time DESC ,a.update_time DESC
             </otherwise>
         </choose>
         LIMIT ${start*limit-limit},${limit}
