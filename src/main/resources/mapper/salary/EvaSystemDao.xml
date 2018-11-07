@@ -91,5 +91,13 @@
          update_time = NOW()
     </update>
 
+    <select id="getSalaryByEva" resultType="String">
+        SELECT
+        salary_id
+        FROM eva_system
+        WHERE user_id = #{uid}
+        AND (agree = 1 OR opp = 1)
+    </select>
+
 
 </mapper>

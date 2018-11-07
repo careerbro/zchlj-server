@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -29,5 +30,15 @@ public class EvaSystemService {
 
     public EvaSystem getEvaSystem(String userId,String salaryId){
         return evaSystemDao.getEvaSystem(userId,salaryId);
+    }
+
+    /**
+     * 获取点赞,反对的薪资id
+     * @param uid
+     * @return
+     */
+    public List<String> getSalaryByEva(String uid){
+
+        return evaSystemDao.getSalaryByEva(uid);
     }
 }

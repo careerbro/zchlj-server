@@ -101,12 +101,20 @@ public class SalaryController {
         List<Salary> salaries = new ArrayList<>();
         Set<String> set = new HashSet<>();
         List<Comment> comments = commentService.getByUserId(uid);
-        if (comments.size()>0) {
+        List<String> salaryId = evaSystemService.getSalaryByEva(uid);
+        if (comments.size()>0 || salaryId.size()>0) {
             for (Comment c :
                     comments) {
                 if (!set.contains(c.getSalaryId())) {
                     set.add(c.getSalaryId());
                     salaries.add(salaryService.getSalaryById(c.getSalaryId()));
+                }
+            }
+            for (String s:
+                 salaryId) {
+                if(!set.contains(s)){
+                    set.add(s);
+                    salaries.add(salaryService.getSalaryById(s));
                 }
             }
             LinkedHashMap<String, Object> map = new LinkedHashMap<>();
