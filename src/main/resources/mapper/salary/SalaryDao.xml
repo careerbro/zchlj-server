@@ -134,16 +134,16 @@
         GROUP BY a.id
         <choose>
             <when test="order == 0">
-                ORDER BY read_num DESC
+                ORDER BY a.read_num DESC
             </when>
             <when test="order == 1">
-                ORDER BY agree_num DESC
+                ORDER BY a.agree_num DESC
             </when>
             <when test="order == 2">
-                ORDER BY reserve_num DESC
+                ORDER BY a.reserve_num DESC
             </when>
             <otherwise>
-                ORDER BY heat_rate DESC,a.create_time DESC ,a.update_time DESC
+                ORDER BY a.heat_rate DESC,a.create_time DESC ,a.update_time DESC
             </otherwise>
         </choose>
         LIMIT ${start*limit-limit},${limit}
