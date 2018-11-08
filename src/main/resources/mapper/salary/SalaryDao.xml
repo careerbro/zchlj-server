@@ -235,7 +235,7 @@
     
     <update id="updateSalaryExtend">
         UPDATE salary
-        SET
+        <set>
         <if test="agree == 1 and agree !='' and null != agree">
             agree_num = agree_num + 1,
         </if>
@@ -260,7 +260,7 @@
         <if test="reserve == 0 and reserve !='' and null != reserve">
             reserve_num = if(reserve_num&lt;0,0,reserve_num-1),
         </if>
-        share_num = 0
+        </set>
         WHERE id = #{salaryId}
     </update>
 
