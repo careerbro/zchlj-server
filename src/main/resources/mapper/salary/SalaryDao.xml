@@ -240,25 +240,25 @@
             agree_num = agree_num + 1,
         </if>
         <if test="agree == 0 and agree !='' and null != agree">
-            agree_num = if(agree_num&lt;0,0,agree_num-1),
+            agree_num = if(agree_num&lt;=0,0,agree_num-1),
         </if>
         <if test="opp == 1 and opp !='' and null != opp">
             opp_num = opp_num + 1,
         </if>
         <if test="opp == 0 and opp !='' and null != opp">
-            opp_num = if(opp_num&lt;0,0,opp_num-1),
+            opp_num = if(opp_num&lt;=0,0,opp_num-1),
         </if>
         <if test="gra == 1 and gra !='' and null != gra">
             gra_num = gra_num + 1,
         </if>
         <if test="gra == 0 and gra !='' and null != gra">
-            gra_num = if(gra_num&lt;0,0,gra_num-1),
+            gra_num = if(gra_num&lt;=0,0,gra_num-1),
         </if>
         <if test="reserve == 1 and reserve !='' and null != reserve">
             reserve_num = reserve_num + 1,
         </if>
         <if test="reserve == 0 and reserve !='' and null != reserve">
-            reserve_num = if(reserve_num&lt;0,0,reserve_num-1),
+            reserve_num = if(reserve_num&lt;=0,0,reserve_num-1),
         </if>
         </set>
         WHERE id = #{salaryId}
