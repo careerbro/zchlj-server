@@ -56,17 +56,17 @@
     
     <update id="updateUser">
         UPDATE user
-        SET
+        <set>
         <if test="email != null">
-            email = #{email}
+            email = #{email},
         </if>
-
         <if test="petName != null">
-            petname = #{petName}
+            petname = #{petName},
         </if>
         <if test="college != null">
-            college_id = #{college}
+            college_id = #{college},
         </if>
+        </set>
         WHERE id = #{id}
     </update>
 
