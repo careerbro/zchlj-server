@@ -36,8 +36,4 @@ public class Salary {
     @Getter @Setter private int commentsNum;
     @Getter @Setter private int offerYear;
     @Getter @Setter private Integer recruitSeason;
-    @Getter @Setter private String jobDetails;
-    @Getter @Setter private String collegeDetails;
-    @Getter @Setter private String corDetails;
-    @Getter @Setter private String cityDetails;
 }
